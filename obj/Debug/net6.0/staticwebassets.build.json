@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ghQVw7CU7q9deEejtEMvRjnNsjL/wPjFOjzxR8VNcP0=",
+  "Hash": "Mf5L3z7+TrKkqKitqeoTti6F7GyMlJIM3kGs701rpts=",
   "Source": "SSProjectFollowUp",
   "BasePath": "_content/SSProjectFollowUp",
   "Mode": "Default",
@@ -2106,6 +2106,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "E:\\SSProjectFollowUp\\SSProjectFollowUp\\wwwroot\\SD.cs",
+      "SourceId": "SSProjectFollowUp",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\SSProjectFollowUp\\SSProjectFollowUp\\wwwroot\\",
+      "BasePath": "_content/SSProjectFollowUp",
+      "RelativePath": "SD.cs",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\SD.cs"
     }
   ]
 }
