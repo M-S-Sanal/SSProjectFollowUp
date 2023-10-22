@@ -34,3 +34,23 @@
         </div>
     </form>
 </div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+        $(document).on('click', '#Edit', function (e) {
+            $("#Companyy").empty();
+            partial('Management', $(this).attr("value"), $(this).attr("value2"))
+        });
+        function partial(dir, ff, ss) {
+            $.ajax({
+                data: { 'ff': ff, 'ss': ss },
+                url: '/Company/' + dir,
+                success: function (partialView) {
+                    $('#Companyy').append(partialView);
+                }
+            });
+        }
+    </script>
+}
