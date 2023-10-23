@@ -43,6 +43,14 @@
             $("#Companyy").empty();
             partial('Management', $(this).attr("value"), $(this).attr("value2"))
         });
+        $(document).on('click', '.choosecomp', function (e) {
+            $("#Companyy").empty();
+            partial('Choice', $(this).attr("value"),null);
+        });
+        $(document).on("click", "#usbe", function (e) {
+            $(".SearchUser").empty();
+            partial('SearchUser', $("#usbet").val(),null);
+        });
         function partial(dir, ff, ss) {
             $.ajax({
                 data: { 'ff': ff, 'ss': ss },

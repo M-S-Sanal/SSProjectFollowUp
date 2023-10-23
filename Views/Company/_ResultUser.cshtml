@@ -1,0 +1,17 @@
+﻿@model SSProjectFollowUp.ViewModels.AdminVM
+@{
+    if (Model.applicationUser0 != null)
+    {
+        <div class="form-group">
+            <label class="control-label">Referance Name</label>
+            <input readonly hidden asp-for="userApproval.ToUserId" id="userId" class="form-control" value="@Model.applicationUser0.Id" />
+            <input readonly id="userName" class="col-11 form-control" value="@Model.applicationUser0.Name" />
+        </div>
+    }
+    else
+    {
+        <div>
+            <h2>Kayıt Bulunamadı!!!</h2>
+        </div>
+    }
+}

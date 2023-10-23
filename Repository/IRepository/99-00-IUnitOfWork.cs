@@ -10,6 +10,7 @@
         IDepartmentRepository Department { get; }
         ISectionRepository Section { get; }
         ICompanyCrossRepository CompanyCross { get; }
+        IUserApprovalRepository UserApproval { get; }
         void Save();
     }
 }

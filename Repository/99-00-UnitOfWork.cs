@@ -18,8 +18,7 @@ namespace SSProjectFollowUp.Repository
             Department = new DepartmentRepository(_db);
             Section = new SectionRepository(_db);
             CompanyCross = new CompanyCrossRepository(_db);
-
-
+            UserApproval = new UserApprovalRepository(_db);
         }
         public IApplicationUserRepository ApplicationUser { get; private set; }
         public IApplicationRoleRepository ApplicationRole { get; private set; }
@@ -28,6 +27,7 @@ namespace SSProjectFollowUp.Repository
         public IDepartmentRepository Department { get; private set; }
         public ISectionRepository Section { get; private set; }        
         public ICompanyCrossRepository CompanyCross { get; private set; }
+        public IUserApprovalRepository UserApproval { get; private set; }
         public void Save()
         {
             _db.SaveChanges();
