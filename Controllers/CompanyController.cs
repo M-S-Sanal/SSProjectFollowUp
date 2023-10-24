@@ -37,7 +37,45 @@ namespace SSProjectFollowUp.Controllers
                 }
                 return PartialView("_CompanyChoose");
             }
+            switch (ff)
+            {
+                case "Company":
+                    var company = _unitofwork.Company.GetFirstOrDefault(r => r.CompId == user.CompId);
+                    return PartialView("_" + ff, company);
+                    break;
+                case "UserList":
+                    
+                    break;
+                case "Approval":
+                    break;
+                case "Organization":
+                    break;
+            }
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateCompany(string submit, Company obj)
+        {
+            if (ModelState.IsValid && submit == "Save")
+            {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                _unitofwork.Company.Add(obj);
+                var user = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == claim);
+                user.Company = obj;
+                var role = _unitofwork.ApplicationRole.GetFirstOrDefault(r => r.Name == "CompanyAdmin");
+                var userrole = new ApplicationUserRole();
+                userrole.User = user;
+                userrole.Role = role;
+                userrole.RoleId = role.Id;
+                userrole.UserId = claim;
+                _unitofwork.ApplicationUserRole.Update(userrole);
+                _unitofwork.Save();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
         }
 
         public IActionResult Choice(string ff)

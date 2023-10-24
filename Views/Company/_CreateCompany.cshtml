@@ -1,0 +1,35 @@
+﻿@model SSProjectFollowUp.Models.Company
+
+<h1>Create Company</h1>
+
+<h4>About Company</h4>
+<hr />
+<div style="padding: inherit; margin: 10px 0px 0px 0px">
+    <div class="row" style="margin:inherit">
+        <div class="col-12" style="margin:inherit">
+            <form asp-action="CreateCompany" enctype="multipart/form-data" style="margin:inherit">
+                <div asp-validation-summary="All" class="text-danger" style="margin:inherit"></div>
+                <div class="form-group" style="margin:inherit">
+                    <label asp-for="CompanyName" class="control-label" style="margin:inherit"></label>
+                    <input asp-for="CompanyName" class="form-control" />
+                    <span asp-validation-for="CompanyName" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="margin:inherit">
+                    <label asp-for="Address" class="control-label" style="margin:inherit"></label>
+                    <textarea asp-for="Address" class="form-control"></textarea>
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="margin:inherit">
+                    <label asp-for="Phone" class="control-label" style="margin:inherit"></label>
+                    <input readonly asp-for="Phone" class="form-control" value="1" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="margin:inherit">
+                    <input name="submit" type="submit" id="submit" value="Save" class="btn btn-primary" style="margin:inherit" />
+                 </div>
+            </form>
+        </div>
+    </div>
+
+    <a asp-action="Index" style="padding:inherit;margin:inherit">Back to List</a>
+</div>
