@@ -179,8 +179,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/SSProjectFollowUp/SSProjectFollowUp/Views/Company/_Company.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfQ29tcGFueS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/SSProjectFollowUp/SSProjectFollowUp/Views/Company/_CompanyChoose.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfQ29tcGFueUNob29zZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SSProjectFollowUp/SSProjectFollowUp/Views/Company/_CreateCompany.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfQ3JlYXRlQ29tcGFueS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/SSProjectFollowUp/SSProjectFollowUp/Views/Company/_Join2Team.cshtml]
@@ -189,6 +197,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/SSProjectFollowUp/SSProjectFollowUp/Views/Company/_ResultUser.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfUmVzdWx0VXNlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SSProjectFollowUp/SSProjectFollowUp/Views/Company/_UserApproval.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfVXNlckFwcHJvdmFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SSProjectFollowUp/SSProjectFollowUp/Views/Company/_UserApproval2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfVXNlckFwcHJvdmFsMi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/SSProjectFollowUp/SSProjectFollowUp/Views/Home/Index.cshtml]

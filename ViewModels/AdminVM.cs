@@ -6,6 +6,8 @@ namespace SSProjectFollowUp.ViewModels
 {
     public class AdminVM
     {
+        public string? idall { get; set; }
+
         public ApplicationUser? applicationUser0 { get; set; }
 
         public int? compid { get; set; }

@@ -41,22 +41,28 @@
     <script type="text/javascript">
         $(document).on('click', '#Edit', function (e) {
             $("#Companyy").empty();
-            partial('Management', $(this).attr("value"), $(this).attr("value2"))
+            partial('Management', $(this).attr("value"), $(this).attr("value2"), '#Companyy');
+            switch ($(this).attr("value")) {
+                case "Approval":
+                    $('#formm').attr('action', '/Company/UserApproval');
+                    break;
+                default:
+            };
         });
         $(document).on('click', '.choosecomp', function (e) {
             $("#Companyy").empty();
-            partial('Choice', $(this).attr("value"),null);
+            partial('Choice', $(this).attr("value"), null, '#Companyy');
         });
         $(document).on("click", "#usbe", function (e) {
             $(".SearchUser").empty();
-            partial('SearchUser', $("#usbet").val(),null);
+            partial('SearchUser', $("#usbet").val(), null, ".SearchUser");
         });
-        function partial(dir, ff, ss) {
+        function partial(dir, ff, ss, area) {
             $.ajax({
                 data: { 'ff': ff, 'ss': ss },
                 url: '/Company/' + dir,
                 success: function (partialView) {
-                    $('#Companyy').append(partialView);
+                    $(area).append(partialView);
                 }
             });
         }

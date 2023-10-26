@@ -47,6 +47,12 @@ namespace SSProjectFollowUp.Controllers
                     
                     break;
                 case "Approval":
+                    AdminVM adminVM = new AdminVM()
+                    {
+                        userApprovals = _unitofwork.UserApproval.
+                                        GetWith(r => r.ToCompId==user.CompId && r.RequestType == "a1" && (r.ToUserId==claim || r.ToCompAdminId==claim), includeProperties: "ApplicantUser")
+                    };
+                    return PartialView("_UserApproval", adminVM);
                     break;
                 case "Organization":
                     break;
@@ -123,6 +129,34 @@ namespace SSProjectFollowUp.Controllers
                 return RedirectToAction("Index");
             }
             return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UserApproval(AdminVM adminVM,string submit)
+        {
+            if (ModelState.IsValid)
+            {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var compid = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == claim).CompId;
+                UserApproval application = _unitofwork.UserApproval.GetFirstOrDefault(r => r.UAId == Convert.ToInt32(adminVM.idall) && r.ToCompId == compid);
+                application.RequestType = submit;
+                if (submit=="Approve")
+                {
+                    ApplicationUser applicant = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == application.ApplicantId);
+                    ApplicationUserRole role = _unitofwork.ApplicationUserRole.GetFirstOrDefault(r => r.UserId == applicant.Id);
+                    Company oldcompany = _unitofwork.Company.GetFirstOrDefault(r => r.CompId == applicant.CompId);
+                    applicant.CompId= compid;
+                    _unitofwork.ApplicationUserRole.Remove(role);
+                    _unitofwork.ApplicationUser.Update(applicant);     
+                    _unitofwork.Company.Remove(oldcompany);
+
+                }
+                _unitofwork.UserApproval.Update(application);
+                _unitofwork.Save();
+            }
+            return RedirectToAction("Index");
         }
     }
 }
