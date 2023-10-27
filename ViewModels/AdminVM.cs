@@ -7,7 +7,7 @@ namespace SSProjectFollowUp.ViewModels
     public class AdminVM
     {
         public string? idall { get; set; }
-
+        public int? count { get; set; }
         public ApplicationUser? applicationUser0 { get; set; }
 
         public int? compid { get; set; }
@@ -17,5 +17,10 @@ namespace SSProjectFollowUp.ViewModels
 
         [ValidateNever]
         public IEnumerable<SelectListItem> scompanies { get; set; }
+
+        public CompanyCross? companyCross { get; set; }
+        public IEnumerable<CompanyCross>? companyCrosses { get; set; }
+        public List<CompanyCross>? companyCrossesList { get; set; }
+
     }
 }

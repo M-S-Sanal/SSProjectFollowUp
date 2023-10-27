@@ -24,6 +24,7 @@ namespace SSProjectFollowUp.Controllers
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            AdminVM adminVM;
             var user = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == claim, includeProperties: "Company");
             if (user.Company.CompanyName == "__TempCompany")
             {
@@ -47,7 +48,7 @@ namespace SSProjectFollowUp.Controllers
                     
                     break;
                 case "Approval":
-                    AdminVM adminVM = new AdminVM()
+                    adminVM = new AdminVM()
                     {
                         userApprovals = _unitofwork.UserApproval.
                                         GetWith(r => r.ToCompId==user.CompId && r.RequestType == "a1" && (r.ToUserId==claim || r.ToCompAdminId==claim), includeProperties: "ApplicantUser")
@@ -55,6 +56,16 @@ namespace SSProjectFollowUp.Controllers
                     return PartialView("_UserApproval", adminVM);
                     break;
                 case "Organization":
+                    adminVM = new AdminVM()
+                    {
+                        companyCrosses = _unitofwork.CompanyCross.GetWith(r => r.CompId == user.CompId, includeProperties: "Department,Section"),
+                        applicationUser0 = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == claim, includeProperties: "Company,Department,Section,UserRoles.Role")
+                    };
+                    if (adminVM.applicationUser0.UserRoles.ToList()[0].Role.Name == "CompanyAdmin")
+                    {
+                        return PartialView("_Organization", adminVM);
+                    }
+                    return PartialView("_Organization");
                     break;
             }
             return View();

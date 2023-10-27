@@ -1,0 +1,40 @@
+﻿@model SSProjectFollowUp.ViewModels.AdminVM
+<div class="delOrganization">
+    <button class=" btn btn-primary EditWorkersList" readonly>Add Worker</button>
+    <table class="table table-bordered  table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Department
+                </th>
+                <th>
+                    Section
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.companyCrosses.Count() > 0)
+            {
+                foreach (var item in Model.companyCrosses)
+                {
+                    <tr>
+                        <td>
+                            @item.Department.DepartmentName
+                            <button class="btn rounded updateorganization depart" type="button" item="@item.Department.DepartmentId"><i class="bi bi-pencil-square"></i></button>
+                        </td>
+                        <td>
+                            @item.Section.SectionName
+                            <button class="btn rounded updateorganization sect" type="button" item="@item.Section.SectionId"><i class="bi bi-pencil-square"></i></button>
+                        </td>
+                    </tr>
+                }
+            }
+            <tr class="OrganizationPart">
+                <td colspan="2">
+                    <button class="btn btn-primary" id="addorganizationpart" type="button" value="@Model.count">Add Department</button>
+                    <input class="btn btn-success" name="submit" type="submit" value="Save" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
