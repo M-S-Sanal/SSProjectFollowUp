@@ -1,14 +1,10 @@
 ﻿@model SSProjectFollowUp.ViewModels.AdminVM
 <div class="delOrganization">
-    <button class=" btn btn-primary EditWorkersList" readonly>Add Worker</button>
     <table class="table table-bordered  table-hover">
         <thead>
             <tr>
                 <th>
-                    Department
-                </th>
-                <th>
-                    Section
+                    Departments
                 </th>
             </tr>
         </thead>
@@ -18,13 +14,9 @@
                 foreach (var item in Model.companyCrosses)
                 {
                     <tr>
-                        <td>
+                        <td  type="button" value="@item.DepartmentId" class="Department">
                             @item.Department.DepartmentName
                             <button class="btn rounded updateorganization depart" type="button" item="@item.Department.DepartmentId"><i class="bi bi-pencil-square"></i></button>
-                        </td>
-                        <td>
-                            @item.Section.SectionName
-                            <button class="btn rounded updateorganization sect" type="button" item="@item.Section.SectionId"><i class="bi bi-pencil-square"></i></button>
                         </td>
                     </tr>
                 }

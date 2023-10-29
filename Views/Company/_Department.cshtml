@@ -1,0 +1,29 @@
+﻿@model SSProjectFollowUp.ViewModels.AdminVM
+<div class=" form-group">
+    <label class="form-label">Department Name</label>
+    <label class="form-label">@Model.companyCrosses.ToList()[0].Department.DepartmentName </label>
+</div>
+<div>
+    <label class="form-label">Department Leader</label>
+</div>
+<div>
+    <button type="button" class="btn btn-primary">Add Section</button>
+    @if (@Model.companyCrosses.Count()>0)
+    {
+        <table class="table table-bordered  table-hover">
+            <thead>
+                <tr>
+                    <td>Section</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.companyCrosses)
+                {
+                    <tr>
+                        <td>@item.Section.SectionName</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

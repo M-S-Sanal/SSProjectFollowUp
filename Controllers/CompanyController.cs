@@ -24,7 +24,7 @@ namespace SSProjectFollowUp.Controllers
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
-            AdminVM adminVM;
+            AdminVM adminVM = new AdminVM();
             var user = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == claim, includeProperties: "Company");
             if (user.Company.CompanyName == "__TempCompany")
             {
@@ -38,37 +38,55 @@ namespace SSProjectFollowUp.Controllers
                 }
                 return PartialView("_CompanyChoose");
             }
+            string partial = "";
             switch (ff)
             {
                 case "Company":
-                    var company = _unitofwork.Company.GetFirstOrDefault(r => r.CompId == user.CompId);
-                    return PartialView("_" + ff, company);
+                    partial = "_" + ff;
+                    adminVM = new AdminVM()
+                    {
+                        company = _unitofwork.Company.GetFirstOrDefault(r => r.CompId == user.CompId)
+                    };
+                    partial = "_" + ff;
                     break;
                 case "UserList":
                     
                     break;
                 case "Approval":
+                    partial = "_UserApproval";
                     adminVM = new AdminVM()
                     {
                         userApprovals = _unitofwork.UserApproval.
-                                        GetWith(r => r.ToCompId==user.CompId && r.RequestType == "a1" && (r.ToUserId==claim || r.ToCompAdminId==claim), includeProperties: "ApplicantUser")
+                                        GetWith(r => r.ToCompId == user.CompId && r.RequestType == "a1" && (r.ToUserId == claim || r.ToCompAdminId == claim), includeProperties: "ApplicantUser")
                     };
-                    return PartialView("_UserApproval", adminVM);
+                    
                     break;
                 case "Organization":
+                    partial = "_Organization";
                     adminVM = new AdminVM()
                     {
-                        companyCrosses = _unitofwork.CompanyCross.GetWith(r => r.CompId == user.CompId, includeProperties: "Department,Section"),
-                        applicationUser0 = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == claim, includeProperties: "Company,Department,Section,UserRoles.Role")
+                        companyCrosses = _unitofwork.CompanyCross.GetWith(r => r.CompId == user.CompId, includeProperties: "Department"),
+                        applicationUser0 = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == claim, includeProperties: "UserRoles.Role")
                     };
-                    if (adminVM.applicationUser0.UserRoles.ToList()[0].Role.Name == "CompanyAdmin")
+                    break;
+                case "Department":
+                    partial = "_Department";
+                    adminVM = new AdminVM()
                     {
-                        return PartialView("_Organization", adminVM);
-                    }
-                    return PartialView("_Organization");
+                        companyCrosses = _unitofwork.CompanyCross.GetWith(r => r.CompId == user.CompId && r.DepartmentId== Convert.ToInt32(ss), includeProperties: "Department,Section"),
+                        applicationUser0 = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == claim, includeProperties: "UserRoles.Role")
+                    };
+                    break;
+                case "Section":
+                    partial = "_Section";
+                    adminVM = new AdminVM()
+                    {
+                        companyCrosses = _unitofwork.CompanyCross.GetWith(r => r.CompId == user.CompId && r.SectionId==Convert.ToInt32(ss), includeProperties: "Department,Section"),
+                        applicationUser0 = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == claim, includeProperties: "UserRoles.Role")
+                    };
                     break;
             }
-            return View();
+            return PartialView(partial, adminVM);
         }
 
         [HttpPost]
