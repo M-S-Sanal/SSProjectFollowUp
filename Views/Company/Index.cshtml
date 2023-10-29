@@ -57,6 +57,14 @@
             $(".SearchUser").empty();
             partial('SearchUser', $("#usbet").val(), null, ".SearchUser");
         });
+        $(document).on("click",".Department",function(e){
+            $("#Companyy").empty();
+            partial('Management', "Department", $(this).attr("value"), '#Companyy');
+        });
+        $(document).on("click", ".Section", function (e) {
+            $("#Companyy").empty();
+            partial('Management', "Section", $(this).attr("value"), '#Companyy');
+        });
         function partial(dir, ff, ss, area) {
             $.ajax({
                 data: { 'ff': ff, 'ss': ss },
