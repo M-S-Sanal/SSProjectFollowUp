@@ -11,7 +11,7 @@
         <tbody>
             @if (Model.companyCrosses.Count() > 0)
             {
-                foreach (var item in Model.companyCrosses)
+                foreach (var item in Model.companyCrosses.DistinctBy(r=>r.DepartmentId))
                 {
                     <tr>
                         <td  type="button" value="@item.DepartmentId" class="Department">

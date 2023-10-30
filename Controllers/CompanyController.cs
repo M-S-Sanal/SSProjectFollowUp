@@ -50,7 +50,7 @@ namespace SSProjectFollowUp.Controllers
                     partial = "_" + ff;
                     break;
                 case "UserList":
-                    
+
                     break;
                 case "Approval":
                     partial = "_UserApproval";
@@ -178,7 +178,7 @@ namespace SSProjectFollowUp.Controllers
                     Company oldcompany = _unitofwork.Company.GetFirstOrDefault(r => r.CompId == applicant.CompId);
                     applicant.CompId= compid;
                     _unitofwork.ApplicationUserRole.Remove(role);
-                    _unitofwork.ApplicationUser.Update(applicant);     
+                    _unitofwork.ApplicationUser.Update(applicant);
                     _unitofwork.Company.Remove(oldcompany);
 
                 }
