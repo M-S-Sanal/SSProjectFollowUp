@@ -14,6 +14,7 @@ namespace SSProjectFollowUp.ViewModels
         public Company? company { get; set; }
         public UserApproval? userApproval { get; set; }
         public IEnumerable<UserApproval>? userApprovals { get; set; }
+        public IEnumerable<ApplicationUser>? applicationUsers { get; set; }
 
         [ValidateNever]
         public IEnumerable<SelectListItem> scompanies { get; set; }

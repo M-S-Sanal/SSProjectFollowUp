@@ -20,7 +20,7 @@
             <tbody>
                 @foreach (var item in Model.companyCrosses)
                 {
-                    <tr>
+                    <tr type="button" value="@item.SectionId" class="Section">
                         <td>@item.Section.SectionName</td>
                     </tr>
                 }

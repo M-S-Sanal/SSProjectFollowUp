@@ -82,7 +82,8 @@ namespace SSProjectFollowUp.Controllers
                     adminVM = new AdminVM()
                     {
                         companyCrosses = _unitofwork.CompanyCross.GetWith(r => r.CompId == user.CompId && r.SectionId==Convert.ToInt32(ss), includeProperties: "Department,Section"),
-                        applicationUser0 = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == claim, includeProperties: "UserRoles.Role")
+                        applicationUser0 = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == claim, includeProperties: "UserRoles.Role"),
+                        applicationUsers=_unitofwork.ApplicationUser.GetWith(r=>r.SectionId== Convert.ToInt32(ss)) 
                     };
                     break;
             }
