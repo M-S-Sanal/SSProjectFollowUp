@@ -1,0 +1,43 @@
+﻿@model SSProjectFollowUp.ViewModels.AdminVM
+<button id="Edit" value="EditCompanyUser" value2="0" class="btn btn-success">Add User</button>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                Auth..
+            </th>
+            <th>
+                Manage..
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (var item in Model.applicationUsers)
+            {
+                <tr>
+                    <td>
+                        @item.UserName
+                    </td>
+                    <td>
+                        @item.UserRoles.ToList()[0].Role
+                    </td>
+                    @{
+                        if (Model.applicationUser0.UserRoles.ToList()[0].Role.ToString() == "Admin" ||
+                        (Model.applicationUser0.UserRoles.ToList()[0].Role.ToString() == "CompanyAdmin" && item.UserRoles.ToList()[0].Role.ToString() != "Admin"))
+                        {
+                            <td>
+                                <button class="btn btn-secondary" id="Edit" value="EditCompanyUser" value2="@item.Id">Update</button>
+                                <button class="btn btn-danger" id="Edit" value="EditCompanyUser" value2="@item.Id">Delete</button>
+                            </td>
+                        }
+                    }
+
+                </tr>
+            }
+        }
+    </tbody>
+</table>

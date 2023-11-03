@@ -50,7 +50,12 @@ namespace SSProjectFollowUp.Controllers
                     partial = "_" + ff;
                     break;
                 case "UserList":
-
+                    adminVM = new AdminVM()
+                    {
+                        applicationUser0 = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == claim, includeProperties: "Company,Department,Section,UserRoles.Role"),
+                        applicationUsers = _unitofwork.ApplicationUser.GetWith(r => r.Id == claim, includeProperties: "Company,Department,Section,UserRoles.Role")
+                    };
+                    return PartialView("_" + ff, adminVM);
                     break;
                 case "Approval":
                     partial = "_UserApproval";

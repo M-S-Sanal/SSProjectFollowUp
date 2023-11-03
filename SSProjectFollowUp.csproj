@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Company\_UserList.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Include="wwwroot\EmailSender.cs" />
     <Compile Include="wwwroot\SD.cs" />
   </ItemGroup>
@@ -26,18 +22,6 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Views\Company\_UserList.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Views\Company\_UserList.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Company\_UserList.cshtml" />
   </ItemGroup>
 
 </Project>
