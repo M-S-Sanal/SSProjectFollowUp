@@ -1,0 +1,18 @@
+﻿@model SSProjectFollowUp.ViewModels.AdminVM
+
+<tr class="addorgcount">
+    <td>
+        <input asp-for="@Model.companyCrossesList[@Convert.ToInt32(Model.count)].CompId" value="@Model.compid" hidden />
+        @{
+            if (Model.someType == "Department")
+            {
+                <input asp-for="@Model.companyCrossesList[@Convert.ToInt32(Model.count)].Department.DepartmentName" value="" class="form-control" />
+            }
+            else
+            {
+                <input hidden asp-for="@Model.companyCrossesList[@Convert.ToInt32(Model.count)].DepartmentId" value="@Model.someType" />
+                <input asp-for="@Model.companyCrossesList[@Convert.ToInt32(Model.count)].Section.SectionName" value="" class="form-control" />
+            }
+        }
+    </td>
+</tr>

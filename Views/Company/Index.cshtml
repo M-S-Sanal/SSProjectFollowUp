@@ -41,7 +41,7 @@
     <script type="text/javascript">
         $(document).on('click', '#Edit', function (e) {
             $("#Companyy").empty();
-            partial('Management', $(this).attr("value"), $(this).attr("value2"), '#Companyy');
+            partial('Management', $(this).attr("value"), $(this).attr("value2"), '#Companyy', 'append');
             switch ($(this).attr("value")) {
                 case "Approval":
                     $('#formm').attr('action', '/Company/UserApproval');
@@ -51,26 +51,40 @@
         });
         $(document).on('click', '.choosecomp', function (e) {
             $("#Companyy").empty();
-            partial('Choice', $(this).attr("value"), null, '#Companyy');
+            partial('Choice', $(this).attr("value"), null, '#Companyy', 'append');
         });
         $(document).on("click", "#usbe", function (e) {
             $(".SearchUser").empty();
-            partial('SearchUser', $("#usbet").val(), null, ".SearchUser");
+            partial('SearchUser', $("#usbet").val(), null, ".SearchUser", 'append');
         });
-        $(document).on("click",".Department",function(e){
+        $(document).on("click", ".Department", function (e) {
             $("#Companyy").empty();
-            partial('Management', "Department", $(this).attr("value"), '#Companyy');
+            partial('Management', "Department", $(this).attr("value"), '#Companyy', 'append');
         });
         $(document).on("click", ".Section", function (e) {
             $("#Companyy").empty();
-            partial('Management', "Section", $(this).attr("value"), '#Companyy');
+            partial('Management', "Section", $(this).attr("value"), '#Companyy', 'append');
         });
-        function partial(dir, ff, ss, area) {
+        $(document).on('click', '#addorganizationpart', function (e) {
+            $('#formm').attr('action', '/Company/SaveOrganizationPart');
+            var countt = $(".addorgcount").length - 1;
+            partial('AddOrganizationPart', $(this).attr("value"), countt, '.OrganizationPart', 'before')
+        });
+
+        function partial(dir, ff, ss, area, ptype) {
             $.ajax({
                 data: { 'ff': ff, 'ss': ss },
                 url: '/Company/' + dir,
                 success: function (partialView) {
-                    $(area).append(partialView);
+                    switch (ptype) {
+                        case "append":
+                            $(area).append(partialView);
+                            break;
+                        case 'before':
+                            $(area).before(partialView);
+                            break;
+                        default:
+                    };
                 }
             });
         }

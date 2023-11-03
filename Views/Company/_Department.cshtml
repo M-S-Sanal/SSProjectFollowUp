@@ -8,8 +8,7 @@
     <label class="form-control">@Model.companyCrosses.ToList()[0].Department.DepartmentName </label>
 </div>
 <div>
-    <button type="button" class="btn btn-primary">Add Section</button>
-    @if (@Model.companyCrosses.Count()>0)
+    @if (@Model.companyCrosses.Count() > 0)
     {
         <table class="table table-bordered  table-hover">
             <thead>
@@ -18,12 +17,23 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.companyCrosses)
-                {
-                    <tr type="button" value="@item.SectionId" class="Section">
-                        <td>@item.Section.SectionName</td>
-                    </tr>
+                @{
+                    foreach (var item in Model.companyCrosses)
+                    {
+                        if (@item.SectionId!=null)
+                        {
+                            <tr type="button" value="@item.SectionId" class="Section">
+                                <td>@item.Section.SectionName</td>
+                            </tr>
+                        }                        
+                    }
                 }
+                <tr class="OrganizationPart">
+                    <td colspan="2">
+                        <button class="btn btn-primary" id="addorganizationpart" type="button" value="@Model.companyCrosses.ToList()[0].DepartmentId">Add Section</button>
+                        <input class="btn btn-success" name="submit" type="submit" value="Save" />
+                    </td>
+                </tr>
             </tbody>
         </table>
     }

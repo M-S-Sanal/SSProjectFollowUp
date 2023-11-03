@@ -8,6 +8,8 @@ namespace SSProjectFollowUp.ViewModels
     {
         public string? idall { get; set; }
         public int? count { get; set; }
+
+        public string? someType { get; set; }
         public ApplicationUser? applicationUser0 { get; set; }
 
         public int? compid { get; set; }

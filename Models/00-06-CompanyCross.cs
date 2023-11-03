@@ -14,9 +14,11 @@ namespace SSProjectFollowUp.Models
         public Company Company { get; set; }
         public int? DepartmentId { get; set; }
         [ForeignKey("DepartmentId")]
-        public Department Department { get; set; }
+        [ValidateNever]
+        public Department? Department { get; set; }
         public int? SectionId { get; set; }
         [ForeignKey("SectionId")]
-        public Section Section { get; set; }
+        [ValidateNever]
+        public Section? Section { get; set; }
     }
 }

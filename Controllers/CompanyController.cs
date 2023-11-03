@@ -59,7 +59,7 @@ namespace SSProjectFollowUp.Controllers
                         userApprovals = _unitofwork.UserApproval.
                                         GetWith(r => r.ToCompId == user.CompId && r.RequestType == "a1" && (r.ToUserId == claim || r.ToCompAdminId == claim), includeProperties: "ApplicantUser")
                     };
-                    
+
                     break;
                 case "Organization":
                     partial = "_Organization";
@@ -73,7 +73,7 @@ namespace SSProjectFollowUp.Controllers
                     partial = "_Department";
                     adminVM = new AdminVM()
                     {
-                        companyCrosses = _unitofwork.CompanyCross.GetWith(r => r.CompId == user.CompId && r.DepartmentId== Convert.ToInt32(ss), includeProperties: "Department,Section"),
+                        companyCrosses = _unitofwork.CompanyCross.GetWith(r => r.CompId == user.CompId && r.DepartmentId == Convert.ToInt32(ss), includeProperties: "Department,Section"),
                         applicationUser0 = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == claim, includeProperties: "UserRoles.Role")
                     };
                     break;
@@ -81,9 +81,9 @@ namespace SSProjectFollowUp.Controllers
                     partial = "_Section";
                     adminVM = new AdminVM()
                     {
-                        companyCrosses = _unitofwork.CompanyCross.GetWith(r => r.CompId == user.CompId && r.SectionId==Convert.ToInt32(ss), includeProperties: "Department,Section"),
+                        companyCrosses = _unitofwork.CompanyCross.GetWith(r => r.CompId == user.CompId && r.SectionId == Convert.ToInt32(ss), includeProperties: "Department,Section"),
                         applicationUser0 = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == claim, includeProperties: "UserRoles.Role"),
-                        applicationUsers=_unitofwork.ApplicationUser.GetWith(r=>r.SectionId== Convert.ToInt32(ss)) 
+                        applicationUsers = _unitofwork.ApplicationUser.GetWith(r => r.SectionId == Convert.ToInt32(ss))
                     };
                     break;
             }
@@ -163,7 +163,7 @@ namespace SSProjectFollowUp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult UserApproval(AdminVM adminVM,string submit)
+        public IActionResult UserApproval(AdminVM adminVM, string submit)
         {
             if (ModelState.IsValid)
             {
@@ -172,12 +172,12 @@ namespace SSProjectFollowUp.Controllers
                 var compid = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == claim).CompId;
                 UserApproval application = _unitofwork.UserApproval.GetFirstOrDefault(r => r.UAId == Convert.ToInt32(adminVM.idall) && r.ToCompId == compid);
                 application.RequestType = submit;
-                if (submit=="Approve")
+                if (submit == "Approve")
                 {
                     ApplicationUser applicant = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == application.ApplicantId);
                     ApplicationUserRole role = _unitofwork.ApplicationUserRole.GetFirstOrDefault(r => r.UserId == applicant.Id);
                     Company oldcompany = _unitofwork.Company.GetFirstOrDefault(r => r.CompId == applicant.CompId);
-                    applicant.CompId= compid;
+                    applicant.CompId = compid;
                     _unitofwork.ApplicationUserRole.Remove(role);
                     _unitofwork.ApplicationUser.Update(applicant);
                     _unitofwork.Company.Remove(oldcompany);
@@ -187,6 +187,63 @@ namespace SSProjectFollowUp.Controllers
                 _unitofwork.Save();
             }
             return RedirectToAction("Index");
+        }
+        public IActionResult AddOrganizationPart(string ff, int? ss)
+        {
+            if (ss == null)
+            {
+                ss = 0;
+            }
+            else
+            {
+                ss = ss + 1;
+            }
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            int? compid = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == claim).CompId;
+            AdminVM adminVM = new AdminVM()
+            {
+                count = ss,
+                compid = compid,
+                someType = ff
+            };
+            return PartialView("_AddOrgPart", adminVM);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SaveOrganizationPart(AdminVM obj, string submit)
+        {
+            if (ModelState.IsValid && submit == "Save")
+            {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+                for (int i = 0; i < obj.companyCrossesList.Count; i++)
+                {
+                    if (obj.companyCrossesList.ToList()[i].Section!= null)
+                    {
+                        //obj.companyCrossesList[i].Department = _unitofwork.Department.GetFirstOrDefault(r => r.DepartmentId == obj.companyCrossesList[i].DepartmentId);
+                        _unitofwork.Section.Add(obj.companyCrossesList[i].Section);
+                    }
+                    else
+                    {
+                        obj.companyCrossesList[i].Section=null;
+                    }
+                    if (obj.companyCrossesList.ToList()[i].Department != null)
+                    {
+                        _unitofwork.Department.Add(obj.companyCrossesList[i].Department);
+                    }
+                    else
+                    {
+                        obj.companyCrossesList[i].Department = null;
+                    }
+                    _unitofwork.CompanyCross.Add(obj.companyCrossesList[i]);
+                }
+
+                _unitofwork.Save();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
         }
     }
 }
