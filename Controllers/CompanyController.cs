@@ -225,14 +225,14 @@ namespace SSProjectFollowUp.Controllers
 
                 for (int i = 0; i < obj.companyCrossesList.Count; i++)
                 {
-                    if (obj.companyCrossesList.ToList()[i].Section!= null)
+                    if (obj.companyCrossesList.ToList()[i].Section != null)
                     {
                         //obj.companyCrossesList[i].Department = _unitofwork.Department.GetFirstOrDefault(r => r.DepartmentId == obj.companyCrossesList[i].DepartmentId);
                         _unitofwork.Section.Add(obj.companyCrossesList[i].Section);
                     }
                     else
                     {
-                        obj.companyCrossesList[i].Section=null;
+                        obj.companyCrossesList[i].Section = null;
                     }
                     if (obj.companyCrossesList.ToList()[i].Department != null)
                     {
@@ -249,6 +249,20 @@ namespace SSProjectFollowUp.Controllers
                 return RedirectToAction("Index");
             }
             return View(obj);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateCompany(AdminVM obj, string submit)
+        { 
+            if (ModelState.IsValid && submit == "Save")
+            {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                _unitofwork.Company.Update(obj.company);
+                _unitofwork.Save();
+            }
+            return View("Index");
         }
     }
 }
