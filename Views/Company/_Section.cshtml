@@ -3,20 +3,24 @@
     <label class="form-label">Department Name</label>
     <label class="form-control">@Model.companyCrosses.ToList()[0].Department.DepartmentName </label>
 </div>
+<br />
 <div class="form-group">
     <label class="form-label">Section Name</label>
     <label class="form-control">@Model.companyCrosses.ToList()[0].Section.SectionName </label>
 </div>
+<br />
 <div>
     <label class="form-label">Section Leader</label>
     <label class="form-control">@Model.companyCrosses.ToList()[0].Section.SectionName </label>
 </div>
+<br />
 <div>
-    <button type="button" class="btn btn-primary">Add User</button>
+    <button type="button" class="btn btn-primary" id="SeachUserToAdd">Add User</button>
+    <br/>
     @if (@Model.applicationUsers.Count() > 0)
     {
-        <table class="table table-bordered  table-hover">
-            <thead>
+        <table class="table table-bordered  table-hover table-striped border-dark">
+            <thead class="table-dark">
                 <tr>
                     <td>Worker Name</td>
                 </tr>

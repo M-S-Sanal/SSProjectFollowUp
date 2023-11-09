@@ -3,15 +3,18 @@
     <label class="form-label">Department Name</label>
     <label class="form-control">@Model.companyCrosses.ToList()[0].Department.DepartmentName </label>
 </div>
+<br />
 <div>
     <label class="form-label">Department Leader</label>
     <label class="form-control">@Model.companyCrosses.ToList()[0].Department.DepartmentName </label>
 </div>
+<br />
+
 <div>
     @if (@Model.companyCrosses.Count() > 0)
     {
-        <table class="table table-bordered  table-hover">
-            <thead>
+        <table class="table table-bordered  table-hover table-striped border-dark">
+            <thead class="table-dark">
                 <tr>
                     <td>Section</td>
                 </tr>
