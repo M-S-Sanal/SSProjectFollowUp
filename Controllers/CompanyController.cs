@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using SSProjectFollowUp.Models;
 using SSProjectFollowUp.Repository.IRepository;
 using SSProjectFollowUp.ViewModels;
 using System.Security.Claims;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SSProjectFollowUp.Controllers
 {
@@ -89,6 +91,32 @@ namespace SSProjectFollowUp.Controllers
                         companyCrosses = _unitofwork.CompanyCross.GetWith(r => r.CompId == user.CompId && r.SectionId == Convert.ToInt32(ss), includeProperties: "Department,Section"),
                         applicationUser0 = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == claim, includeProperties: "UserRoles.Role"),
                         applicationUsers = _unitofwork.ApplicationUser.GetWith(r => r.SectionId == Convert.ToInt32(ss))
+                    };
+                    break;
+                case "EditCompanyUser":
+                    partial = "_EditUser";
+                    var compid = _unitofwork.ApplicationUser.GetFirstOrDefault(y => y.Id == ss).CompId;
+                    adminVM = new AdminVM()
+                    {
+                        applicationUser0 = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == ss, includeProperties: "Company,Department,Section,UserRoles.Role"),
+                        suserRoles = _unitofwork.ApplicationRole.GetAll().Select(i => new SelectListItem
+                        {
+                            Text = i.Name,
+                            Value = i.Id
+                        }),
+                        sCompanyCrossesDepartment=_unitofwork.CompanyCross.GetWith(r => r.CompId == compid ,includeProperties: "Department")
+                        .Select(i=> new SelectListItem
+                        {
+                            Text =i.Department.DepartmentName,
+                            Value = i.DepartmentId.ToString()
+                        }).DistinctBy(i=>i.Value),
+                        sCompanyCrossesSection = _unitofwork.CompanyCross.GetWith(r => r.CompId == compid && r.SectionId!=null, includeProperties: "Section")
+                        .Select(i => new SelectListItem
+                        {
+                            Text = i.Section.SectionName,
+                            Value = i.SectionId.ToString()
+                        }),
+                        applicationUserRole = _unitofwork.ApplicationUserRole.GetFirstOrDefaultWith(r=>r.UserId==ss,includeProperties:"User,Role")
                     };
                     break;
             }
@@ -254,7 +282,7 @@ namespace SSProjectFollowUp.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult UpdateCompany(AdminVM obj, string submit)
-        { 
+        {
             if (ModelState.IsValid && submit == "Save")
             {
                 var claimsIdentity = (ClaimsIdentity)User.Identity;
@@ -264,5 +292,29 @@ namespace SSProjectFollowUp.Controllers
             }
             return View("Index");
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditCompanyUser(AdminVM obj, string submit)
+        {
+            if (ModelState.IsValid && submit == "Save")
+            {                
+                var userRole = _unitofwork.ApplicationUserRole.GetFirstOrDefault(r => r.UserId == obj.applicationUser0.Id);
+                _unitofwork.ApplicationUserRole.Remove(userRole);
+
+                _unitofwork.ApplicationUserRole.Add(obj.applicationUserRole);
+                var user = _unitofwork.ApplicationUser.GetFirstOrDefault(r=>r.Id==obj.applicationUser0.Id);
+                var propsList = typeof(ApplicationUser).GetProperties();
+                if (user != obj.applicationUser0)
+                {
+                    user.UserName = obj.applicationUser0.UserName;
+                    user.Email = obj.applicationUser0.Email;
+                }
+                _unitofwork.ApplicationUser.Update(obj.applicationUser0);
+                _unitofwork.Save();
+            }
+            return View("Index");
+        }
+
     }
 }

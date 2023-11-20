@@ -23,7 +23,7 @@ namespace SSProjectFollowUp.Models
         [ForeignKey("SectionId")]
         [ValidateNever]
         public Section? Section { get; set; }
-        public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
+        public virtual ICollection<ApplicationUserRole>? UserRoles { get; set; }
 
     }
 }

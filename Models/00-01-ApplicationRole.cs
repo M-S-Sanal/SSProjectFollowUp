@@ -8,6 +8,6 @@ namespace SSProjectFollowUp.Models
         {
         }
         public string? RoleName { get; set; }
-        public virtual ICollection<ApplicationUserRole> UserRoles { get; set; }
+        public virtual ICollection<ApplicationUserRole>? UserRoles { get; set; }
     }
 }

@@ -199,6 +199,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfRGVwYXJ0bWVudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/SSProjectFollowUp/SSProjectFollowUp/Views/Company/_EditUser.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfRWRpdFVzZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/SSProjectFollowUp/SSProjectFollowUp/Views/Company/_Join2Team.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29tcGFueVxfSm9pbjJUZWFtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

@@ -261,7 +261,7 @@ namespace SSProjectFollowUp.Migrations
 
                     b.HasKey("CompId");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
                 });
 
             modelBuilder.Entity("SSProjectFollowUp.Models.CompanyCross", b =>
@@ -289,7 +289,7 @@ namespace SSProjectFollowUp.Migrations
 
                     b.HasIndex("SectionId");
 
-                    b.ToTable("CompanyCrosses");
+                    b.ToTable("CompanyCrosses", (string)null);
                 });
 
             modelBuilder.Entity("SSProjectFollowUp.Models.Department", b =>
@@ -306,7 +306,7 @@ namespace SSProjectFollowUp.Migrations
 
                     b.HasKey("DepartmentId");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("SSProjectFollowUp.Models.Section", b =>
@@ -323,7 +323,7 @@ namespace SSProjectFollowUp.Migrations
 
                     b.HasKey("SectionId");
 
-                    b.ToTable("Sections");
+                    b.ToTable("Sections", (string)null);
                 });
 
             modelBuilder.Entity("SSProjectFollowUp.Models.UserApproval", b =>
@@ -368,7 +368,7 @@ namespace SSProjectFollowUp.Migrations
 
                     b.HasIndex("ApplicantId");
 
-                    b.ToTable("UserApprovals");
+                    b.ToTable("UserApprovals", (string)null);
                 });
 
             modelBuilder.Entity("SSProjectFollowUp.Models.ApplicationUser", b =>
