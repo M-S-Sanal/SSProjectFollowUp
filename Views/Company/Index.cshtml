@@ -76,7 +76,10 @@
             var countt = $(".addorgcount").length - 1;
             partial('AddOrganizationPart', $(this).attr("value"), countt, '.OrganizationPart', 'before')
         });
-
+        $(document).on('click', '#SeachUserToAdd', function (e) {
+            $('#formm').attr('action', '/Company/AddUserToSection');
+            partial('', '', '', '', 'before')
+        });
         function partial(dir, ff, ss, area, ptype) {
             $.ajax({
                 data: { 'ff': ff, 'ss': ss },
@@ -94,5 +97,23 @@
                 }
             });
         }
+
+        $(document).on('change', '#selectDept', function () {
+
+            var selectDept = $("#selectDept");
+            var selectSect = $("#selectSect");
+            selectSect.empty();
+            $.getJSON('@Url.Action("GetSection")', { deptid: selectDept.val() }, function (sections) {
+
+                selectSect.append($('<option/>', {
+                    value: null, text: ""
+                }));
+                $.each(sections, function (index, section) {                    
+                    selectSect.append($('<option/>', {
+                        text: section.text, value: section.value
+                    }));
+                });
+            });
+        });
     </script>
 }

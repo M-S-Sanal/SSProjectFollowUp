@@ -14,13 +14,13 @@
     </div>
     <div class="form-group">
         <label class="form-label" asp-for="applicationUser0.Department.DepartmentName"></label>
-        <select asp-for="@Model.applicationUser0.DepartmentId" asp-items="@Model.sCompanyCrossesDepartment" class="form-select">
+        <select id="selectDept" asp-for="@Model.applicationUser0.DepartmentId" asp-items="@Model.sCompanyCrossesDepartment" class="form-select">
             <option disabled selected>-- Select Level-- </option>
         </select>
     </div>
     <div class="form-group">
         <label class="form-label" asp-for="applicationUser0.Section.SectionName"></label>        
-        <select asp-for="@Model.applicationUser0.SectionId" asp-items="@Model.sCompanyCrossesSection" class="form-select">
+        <select id="selectSect"  asp-for="@Model.applicationUser0.SectionId" asp-items="@Model.sCompanyCrossesSection" class="form-select">
             <option disabled selected>-- Select Level-- </option>
         </select>
     </div>

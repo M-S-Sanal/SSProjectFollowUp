@@ -6,6 +6,7 @@ using SSProjectFollowUp.Models;
 using SSProjectFollowUp.Repository.IRepository;
 using SSProjectFollowUp.ViewModels;
 using System.Security.Claims;
+
 using static System.Net.Mime.MediaTypeNames;
 
 namespace SSProjectFollowUp.Controllers
@@ -104,19 +105,19 @@ namespace SSProjectFollowUp.Controllers
                             Text = i.Name,
                             Value = i.Id
                         }),
-                        sCompanyCrossesDepartment=_unitofwork.CompanyCross.GetWith(r => r.CompId == compid ,includeProperties: "Department")
-                        .Select(i=> new SelectListItem
+                        sCompanyCrossesDepartment = _unitofwork.CompanyCross.GetWith(r => r.CompId == compid, includeProperties: "Department")
+                        .Select(i => new SelectListItem
                         {
-                            Text =i.Department.DepartmentName,
+                            Text = i.Department.DepartmentName,
                             Value = i.DepartmentId.ToString()
-                        }).DistinctBy(i=>i.Value),
-                        sCompanyCrossesSection = _unitofwork.CompanyCross.GetWith(r => r.CompId == compid && r.SectionId!=null, includeProperties: "Section")
+                        }).DistinctBy(i => i.Value),
+                        sCompanyCrossesSection = _unitofwork.CompanyCross.GetWith(r => r.CompId == compid && r.SectionId != null, includeProperties: "Section")
                         .Select(i => new SelectListItem
                         {
                             Text = i.Section.SectionName,
                             Value = i.SectionId.ToString()
                         }),
-                        applicationUserRole = _unitofwork.ApplicationUserRole.GetFirstOrDefaultWith(r=>r.UserId==ss,includeProperties:"User,Role")
+                        applicationUserRole = _unitofwork.ApplicationUserRole.GetFirstOrDefaultWith(r => r.UserId == ss, includeProperties: "User,Role")
                     };
                     break;
             }
@@ -298,12 +299,12 @@ namespace SSProjectFollowUp.Controllers
         public IActionResult EditCompanyUser(AdminVM obj, string submit)
         {
             if (ModelState.IsValid && submit == "Save")
-            {                
+            {
                 var userRole = _unitofwork.ApplicationUserRole.GetFirstOrDefault(r => r.UserId == obj.applicationUser0.Id);
                 _unitofwork.ApplicationUserRole.Remove(userRole);
 
                 _unitofwork.ApplicationUserRole.Add(obj.applicationUserRole);
-                var user = _unitofwork.ApplicationUser.GetFirstOrDefault(r=>r.Id==obj.applicationUser0.Id);
+                var user = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == obj.applicationUser0.Id);
                 var propsList = typeof(ApplicationUser).GetProperties();
                 if (user != obj.applicationUser0)
                 {
@@ -316,5 +317,21 @@ namespace SSProjectFollowUp.Controllers
             return View("Index");
         }
 
+        #region API CALLS
+
+        [HttpGet]
+
+        public ActionResult GetSection(int deptid)
+        {
+
+            IEnumerable<SelectListItem> sections = _unitofwork.CompanyCross.GetWith(r => r.DepartmentId == deptid && r.SectionId != null, includeProperties: "Section")
+                .Select(i => new SelectListItem
+                {
+                    Text = i.Section.SectionName,
+                    Value = i.SectionId.ToString()
+                });
+            return Json(sections);
+        }
+        #endregion
     }
 }
