@@ -11,6 +11,8 @@
         ISectionRepository Section { get; }
         ICompanyCrossRepository CompanyCross { get; }
         IUserApprovalRepository UserApproval { get; }
+
+        IProjectRepository Project { get; }
         void Save();
     }
 }

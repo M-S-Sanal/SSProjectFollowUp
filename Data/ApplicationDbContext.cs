@@ -17,6 +17,7 @@ namespace SSProjectFollowUp.Data
         public DbSet<Section> Sections { get; set; }
         public DbSet<CompanyCross> CompanyCrosses { get; set; }
         public DbSet<UserApproval> UserApprovals { get; set; }
+        public DbSet<Project> Projects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
