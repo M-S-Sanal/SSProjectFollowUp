@@ -36,5 +36,10 @@ namespace SSProjectFollowUp.Controllers
             projectVM.project.CreatedBy= user;
             return View(projectVM);
         }
+
+        public IActionResult NewFile()
+        {
+            return PartialView("_FileAdd");
+        }
     }
 }

@@ -21,6 +21,7 @@ namespace SSProjectFollowUp.Repository
             UserApproval = new UserApprovalRepository(_db);
 
             Project = new ProjectRepository(_db);
+            ProjectFile = new ProjectFileRepository(_db);
         }
         public IApplicationUserRepository ApplicationUser { get; private set; }
         public IApplicationRoleRepository ApplicationRole { get; private set; }
@@ -32,6 +33,7 @@ namespace SSProjectFollowUp.Repository
         public IUserApprovalRepository UserApproval { get; private set; }
 
         public IProjectRepository Project { get; private set; }
+        public IProjectFileRepository ProjectFile { get; private set; }
         public void Save()
         {
             _db.SaveChanges();

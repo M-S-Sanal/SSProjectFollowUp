@@ -29,8 +29,14 @@
                     <textarea asp-for="project.Description" class="form-control" id="Description"></textarea>
                     <span asp-validation-for="project.Description" class="text-danger"></span>
                 </div>
+                <div>
+                    <div class="NewFile" style="margin:inherit">
+                        <partial name="_FileAdd.cshtml" />
+                    </div>
+                </div>
                 <div class="form-group" style="margin:inherit">
                     <input name="submit" type="submit" id="submit" value="Save" class="btn btn-primary" style="margin:inherit" />
+                    <button name="submit" type="button" id="process" value="Process" class="btn btn-secondary" width="100%" height="100%" style="margin:inherit">Dosya Ekle</button>
                 </div>
             </form>
         </div>
@@ -39,3 +45,20 @@
     <a asp-action="Index" style="padding:inherit;margin:inherit">Back to List</a>
 </div>
 
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+        $(document).on('click', '#process', function (e) {
+            $.ajax({
+                url: '/Project/NewFile',
+                success: function (partialView) {
+                    $('.NewFile').append(partialView);
+                }
+            });
+        });
+        $(document).on("click", "#FileDelete", function () {
+            $(this).parent().parent().parent().remove();
+        });
+    </script>
+}
