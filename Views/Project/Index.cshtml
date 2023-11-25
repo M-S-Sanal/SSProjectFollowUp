@@ -1,8 +1,34 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@model SSProjectFollowUp.ViewModels.ProjectVM
+<div class="buttons">
+    <a asp-controller="Project" asp-action="CreateProject" class="btn btn-primary">Create New Project</a>
+</div>
+<div>
+    <table class="table table-bordered  table-hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    P.Name
+                </th>
+                <th>
+                    Level
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach (var item in Model.projects)
+                    {
+                        <tr class="rowie">
+                            <td name="submit" class="projectt" type="button" id="process" value=@item.PId > @item.Name</td>
+                            <td name="submit" class="projectt" type="button" id="process" value=@item.PId ></td>
+                        </tr>
+                    }
 
-<h1>Index</h1>
+                }
+            }
+        </tbody>
+    </table>
+</div>
 

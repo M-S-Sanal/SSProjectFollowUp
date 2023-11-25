@@ -15,6 +15,12 @@ namespace SSProjectFollowUp.Controllers
         }
         public IActionResult Index()
         {
+            ProjectVM projectVM = new ProjectVM()
+            {
+                projects = _unitofwork.Project.GetAll()
+            };
+            return View(projectVM);
+        }
             return View();
         }
     }
