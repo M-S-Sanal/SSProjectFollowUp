@@ -1,0 +1,41 @@
+﻿@model SSProjectFollowUp.ViewModels.ProjectVM
+@{
+    ViewData["Title"] = "CreateProject";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CreateProject</h1>
+
+<h4>Project</h4>
+<hr />
+<div style="padding: inherit; margin: 10px 0px 0px 0px">
+    <div class="row" style="margin:inherit">
+        <div class="col-12" style="margin:inherit">
+            <form asp-action="CreateProject" enctype="multipart/form-data" style="margin:inherit">
+                <div asp-validation-summary="All" class="text-danger" style="margin:inherit"></div>
+                <div class="form-group" style="margin:inherit">
+                    <input hidden readonly asp-for="project.CreaterId" value="@Model.project.CreatedBy.Id" class="control-label" style="margin:inherit" />
+                    <input hidden readonly asp-for="project.CompId" value="@Model.project.CreatedBy.CompId" class="control-label" style="margin:inherit" />
+                    <label asp-for="project.CreatedBy.Name" class="control-label" style="margin:inherit"></label>
+                    <input asp-for="project.CreatedBy.Name" readonly class="form-control" value="@Model.project.CreatedBy.UserName" />
+                </div>
+                <div class="form-group" style="margin:inherit">
+                    <label asp-for="project.Name" class="control-label" style="margin:inherit"></label>
+                    <input asp-for="project.Name" class="form-control" />
+                    <span asp-validation-for="project.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="margin:inherit">
+                    <label asp-for="project.Description" class="control-label" style="margin:inherit"></label>
+                    <textarea asp-for="project.Description" class="form-control" id="Description"></textarea>
+                    <span asp-validation-for="project.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="margin:inherit">
+                    <input name="submit" type="submit" id="submit" value="Save" class="btn btn-primary" style="margin:inherit" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <a asp-action="Index" style="padding:inherit;margin:inherit">Back to List</a>
+</div>
+

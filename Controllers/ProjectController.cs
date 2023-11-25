@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SSProjectFollowUp.Models;
 using SSProjectFollowUp.Repository.IRepository;
+using SSProjectFollowUp.ViewModels;
 using System.Security.Claims;
 
 namespace SSProjectFollowUp.Controllers
@@ -21,7 +23,18 @@ namespace SSProjectFollowUp.Controllers
             };
             return View(projectVM);
         }
-            return View();
+        public IActionResult CreateProject()
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == claim);
+            ProjectVM projectVM = new ProjectVM()
+            {
+                project = new Project()
+            };
+            projectVM.project.CompId = user.CompId;
+            projectVM.project.CreatedBy= user;
+            return View(projectVM);
         }
     }
 }
