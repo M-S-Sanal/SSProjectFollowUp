@@ -36,6 +36,46 @@ namespace SSProjectFollowUp.Controllers
             projectVM.project.CreatedBy= user;
             return View(projectVM);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateProject(string submit, ProjectVM obj, IFormFileCollection? files)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (ModelState.IsValid && submit == "Save")
+            {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (files != null || files.Count != 0)
+                {
+                    var uploads = Path.Combine(wwwRootPath, @"Documents");
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        string fileName = Guid.NewGuid().ToString();
+                        var extention = Path.GetExtension(files[i].FileName);
+                        using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + "-" + i.ToString() + extention), FileMode.Create))
+                        {
+                            files[i].CopyTo(fileStreams);
+                        }
+                        ProjectFile obj2 = new ProjectFile
+                        {
+                            FName = files[i].FileName,
+                            FNo = 0,
+                            FExtention = extention,
+                            FUrl = fileName,
+                        };
+                        obj2.Project = obj.project;
+                        obj2.CompId = obj.project.CompId;
+                        _unitofwork.ProjectFile.Add(obj2);
+                    }
+                }
+                obj.project.CreatedBy = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == claim);
+                _unitofwork.Project.Add(obj.project);
+                _unitofwork.Save();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
+
 
         public IActionResult NewFile()
         {
