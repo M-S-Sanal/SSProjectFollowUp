@@ -69,6 +69,7 @@ namespace SSProjectFollowUp.Controllers
                     }
                 }
                 obj.project.CreatedBy = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == claim);
+                obj.project.PLevel = 1;
                 _unitofwork.Project.Add(obj.project);
                 _unitofwork.Save();
                 return RedirectToAction("Index");
