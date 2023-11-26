@@ -1,0 +1,31 @@
+﻿@model SSProjectFollowUp.ViewModels.ProjectVM
+<div>
+    <table class="table table-bordered  table-hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>
+                    P.Name
+                </th>
+                <th>
+                    Level
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    foreach (var item in Model.projects)
+                    {
+                        <tr class="rowie">
+                            <td name="submit" class="projectt" type="button" id="process" value=@item.PId> @item.Name</td>
+                            <td name="submit" class="projectt" type="button" id="process" value=@item.PId> @item.PLevel</td>
+                        </tr>
+                    }
+
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
