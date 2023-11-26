@@ -36,5 +36,10 @@ namespace SSProjectFollowUp.Models
         [ForeignKey("CompId")]
         [ValidateNever]
         public Company? Company { get; set; }
+
+        public int PLevel { get; set; } = 1;
+        [ForeignKey("PLevel")]
+        [ValidateNever]
+        public ProjectLevel ProjectLevel { get; set; }
     }
 }

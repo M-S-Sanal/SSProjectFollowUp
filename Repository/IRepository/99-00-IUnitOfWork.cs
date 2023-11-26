@@ -14,6 +14,7 @@
 
         IProjectRepository Project { get; }
         IProjectFileRepository ProjectFile { get; }
+        IProjectLevelRepository ProjectLevel { get; }
         void Save();
     }
 }

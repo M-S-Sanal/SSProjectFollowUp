@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SSProjectFollowUp.Data;
 
@@ -11,9 +12,11 @@ using SSProjectFollowUp.Data;
 namespace SSProjectFollowUp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231126201622_projetlevelstodb")]
+    partial class projetlevelstodb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -337,9 +340,6 @@ namespace SSProjectFollowUp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PLevel")
-                        .HasColumnType("int");
-
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("DateTime2(0)")
                         .HasColumnName("UpdatedAt");
@@ -352,8 +352,6 @@ namespace SSProjectFollowUp.Migrations
                     b.HasIndex("CompId");
 
                     b.HasIndex("CreaterId");
-
-                    b.HasIndex("PLevel");
 
                     b.HasIndex("UpdaterId");
 
@@ -644,12 +642,6 @@ namespace SSProjectFollowUp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SSProjectFollowUp.Models.ProjectLevel", "ProjectLevel")
-                        .WithMany()
-                        .HasForeignKey("PLevel")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("SSProjectFollowUp.Models.ApplicationUser", "UpdatedBy")
                         .WithMany()
                         .HasForeignKey("UpdaterId");
@@ -657,8 +649,6 @@ namespace SSProjectFollowUp.Migrations
                     b.Navigation("Company");
 
                     b.Navigation("CreatedBy");
-
-                    b.Navigation("ProjectLevel");
 
                     b.Navigation("UpdatedBy");
                 });

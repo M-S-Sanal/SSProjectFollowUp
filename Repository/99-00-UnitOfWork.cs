@@ -22,6 +22,7 @@ namespace SSProjectFollowUp.Repository
 
             Project = new ProjectRepository(_db);
             ProjectFile = new ProjectFileRepository(_db);
+            ProjectLevel = new ProjectLevelRepository(_db);
         }
         public IApplicationUserRepository ApplicationUser { get; private set; }
         public IApplicationRoleRepository ApplicationRole { get; private set; }
@@ -34,6 +35,7 @@ namespace SSProjectFollowUp.Repository
 
         public IProjectRepository Project { get; private set; }
         public IProjectFileRepository ProjectFile { get; private set; }
+        public IProjectLevelRepository ProjectLevel { get; private set; }
         public void Save()
         {
             _db.SaveChanges();
