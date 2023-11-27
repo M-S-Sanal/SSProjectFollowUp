@@ -15,14 +15,18 @@
             @{
                 if (Model != null)
                 {
-                    foreach (var item in Model.projects)
+                    for (int i = 0; i < Model.projects.Count(); i++)
                     {
-                        <tr class="rowie">
-                            <td name="submit" class="projectt" type="button" id="process" value=@item.PId> @item.Name</td>
-                            <td name="submit" class="projectt" type="button" id="process" value=@item.PId> @item.PLevel</td>
+                        var classs = "";
+                        if (i==0)
+                        {
+                            classs = "table-active";
+                        }
+                        <tr class="rowie @classs">
+                            <td name="submit" class="projectt" type="button" id="process" value=@Model.projects.ToList()[i].PId> @Model.projects.ToList()[i].Name</td>
+                            <td name="submit" class="projectt" type="button" id="process" value=@Model.projects.ToList()[i].PId> @Model.projects.ToList()[i].PLevel</td>
                         </tr>
                     }
-
                 }
             }
         </tbody>

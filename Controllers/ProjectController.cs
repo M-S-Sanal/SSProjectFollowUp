@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SSProjectFollowUp.Models;
 using SSProjectFollowUp.Repository.IRepository;
 using SSProjectFollowUp.ViewModels;
@@ -76,6 +77,18 @@ namespace SSProjectFollowUp.Controllers
             }
             return View(obj);
         }
+        public IActionResult ProjectDetail(int Id)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var compId = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == claim).CompId;
+            var projectVM = new ProjectVM
+            {
+                project = _unitofwork.Project.GetFirstOrDefault(r => r.PId == Id && r.CompId == compId),
+            };
+            return PartialView("_ProjectDetail", projectVM);
+        }
+        
 
 
         public IActionResult NewFile()
