@@ -1,10 +1,10 @@
-﻿@model SSProjectFollowUp.Models.Project
+﻿@model SSProjectFollowUp.ViewModels.ProjectVM
 <div class="delProjectDetail">
     @{
         var Desc = "";
         if (Model != null)
         {
-            Desc = @Model.Description;
+            Desc = @Model.project.Description;
         }
         else { Desc = ""; }
     }

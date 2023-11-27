@@ -95,5 +95,19 @@ namespace SSProjectFollowUp.Controllers
         {
             return PartialView("_FileAdd");
         }
+
+        public IActionResult ProjectFill(int Id)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var compId = _unitofwork.ApplicationUser.GetFirstOrDefaultWith(r => r.Id == claim).CompId;
+            var projectVM = new ProjectVM
+            {
+                project = _unitofwork.Project.GetFirstOrDefault(r => r.PId == Id && r.CompId == compId),
+                projectItems = _unitofwork.ProjectItem.GetWith(r => r.PId == Id && r.CompId == compId, includeProperties: "Project").OrderBy(r => r.OrderColumn + "." + r.PSId),
+            };
+            return PartialView("_ProjectItem", projectVM);
+        }
+
     }
 }

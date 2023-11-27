@@ -3,7 +3,7 @@
     <a asp-controller="Project" asp-action="CreateProject" class="btn btn-primary">Create New Project</a>
 </div>
 <div class="row ">
-    <div class="col col-md-4" id="SolTam">
+    <div class="col col-md-4" id="LeftFull">
         <partial name="_Project.cshtml" />
     </div>
     <div class="col col-md-8">
@@ -18,13 +18,12 @@
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-Details" role="tabpanel" aria-labelledby="nav-Details-tab" tabindex="0">
                 <div class="ProjectDetail">
-                    <partial name="_ProjectDetail" , model="Model.projects.FirstOrDefault()"/>
                 </div>
                 <div class="ProjectFile">
                 </div>
             </div>
             <div class="tab-pane fade" id="nav-List" role="tabpanel" aria-labelledby="nav-List-tab" tabindex="0">
-                <div class="Doldur">
+                <div class="ProjectFill">
                 </div>
             </div>
             <div class="tab-pane fade" id="nav-DetailToDo" role="tabpanel" aria-labelledby="nav-DetailToDo-tab" tabindex="0">
@@ -64,14 +63,17 @@
         $(document).on('click', '#process', function (e) {
             process($(this).attr("value1"), $(this).attr("value2"), $(this));
         });
+
+
         /************************** Functions **************************/
-        function process(zz) {
+        function process(zz, zy, qy) {
             $(".rowie").removeClass("table-active");           
             qy.parent().addClass("table-active");
             partial('ProjectDetail', zz);
+            partial('ProjectFill',zz);
         };
         function partial(partial, id) {
-            $('.del' + partial).remove();
+            $('.' + partial).empty();
             $.ajax({
                 data: { 'id': id },
                 url: '/Project/' + partial,
@@ -79,6 +81,7 @@
                     $('.' + partial).append(partialView);
                 }
             });
-        }
+        };
+        
     </script>
 }

@@ -1,0 +1,92 @@
+﻿@model SSProjectFollowUp.ViewModels.ProjectVM
+
+<div>
+    @{
+        <table class="table table-bordered  table-hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th hidden> PId</th>
+                    <th>No</th>
+                    <th>Up</th>
+                    <th>
+                        Description
+                    </th>
+                    <th>
+                        Person In Charge
+                    </th>
+                    <th>
+                        Start Date
+                    </th>
+                    <th>
+                        Due Date
+                    </th>
+                    <th>
+                        Status
+                        Test/Result
+                    </th>
+                    <th>
+                        Details
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var item in Model.projectItems)
+                    {
+                        string colll = "";
+                        var idd = item.PSId;
+                        string sup = ("row_" + @item.OrderColumn).Replace(".", "_");
+                        string inf = ("row_" + @item.OrderColumn + "." + @item.PSId).Replace(".", "_");
+                        if (@item.PSSId != null)
+                        {
+                            colll = "collapse";
+                        }
+                        else
+                        {
+                            colll = "";
+                        }
+                        <tr id="@idd" class="accordion-toggle @colll @sup">
+                            <td>
+                                @if (Model.projectItems.Count(r => r.OrderColumn == item.OrderColumn + "." + item.PSId.ToString()) > 0)
+                                {
+                                    <button type="button" class="bi bi-caret-up-fill btn btn-outline-dark" id="collapse" data-bs-toggle="collapse" data-bs-target=".@inf" aria-expanded="false"
+                                    aria-controls="row_@item.OrderColumn.@item.PSId" value="@idd">
+                                    </button>
+                                }
+                            </td>
+                            <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn" hidden>@item.PId</td>
+                            <td type="button" class="Doldur rowww_@item.OrderColumn.Count(t => t == '.') fs-6" value1="@idd" value2="@item.OrderColumn">@item.PSId</td>
+                            <td type="button" class="Doldur rowww_@item.OrderColumn.Count(t => t == '.') fs-6" value1="@idd" value2="@item.OrderColumn">@item.PSSId</td>
+                            <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn"><texarea>@item.Description</texarea></td>
+                            <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn">@item.InCharge</td>
+
+                            @{
+                                if (Convert.ToDateTime(item.StartDate) != Convert.ToDateTime(null))
+                                {
+                                    <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn">
+                                        @Convert.ToDateTime(item.StartDate).Date.ToShortDateString()
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn"></td>
+                                }
+                            }
+                            <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn">@Convert.ToDateTime(item.DueDate).Date.ToShortDateString()</td>
+                            <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn">@item.ProjectLevel.Level</td>
+                            <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn"><button value="@idd" class="doldurgstr btn btn-primary" type="button">Show</button></td>
+                        </tr>
+            }
+                    <tr class="NewProjectItems">
+                        <td colspan="9">
+                            <div class="d-flex justify-content-center">
+                                <button type="button" id="AddToDo" class="btn btn-outline-dark" value1=@Model.project.PId value2="" value3=""><i class="bi bi-plus-square"></i>Add ToDo</button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

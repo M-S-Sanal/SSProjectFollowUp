@@ -21,6 +21,7 @@ namespace SSProjectFollowUp.Repository
             UserApproval = new UserApprovalRepository(_db);
 
             Project = new ProjectRepository(_db);
+            ProjectItem = new ProjectItemRepository(_db);
             ProjectFile = new ProjectFileRepository(_db);
             ProjectLevel = new ProjectLevelRepository(_db);
         }
@@ -34,6 +35,7 @@ namespace SSProjectFollowUp.Repository
         public IUserApprovalRepository UserApproval { get; private set; }
 
         public IProjectRepository Project { get; private set; }
+        public IProjectItemRepository ProjectItem { get; private set; }
         public IProjectFileRepository ProjectFile { get; private set; }
         public IProjectLevelRepository ProjectLevel { get; private set; }
         public void Save()

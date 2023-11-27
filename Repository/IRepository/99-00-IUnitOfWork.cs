@@ -13,6 +13,7 @@
         IUserApprovalRepository UserApproval { get; }
 
         IProjectRepository Project { get; }
+        IProjectItemRepository ProjectItem { get; }
         IProjectFileRepository ProjectFile { get; }
         IProjectLevelRepository ProjectLevel { get; }
         void Save();
