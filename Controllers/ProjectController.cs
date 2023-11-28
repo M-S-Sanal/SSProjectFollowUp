@@ -109,5 +109,53 @@ namespace SSProjectFollowUp.Controllers
             return PartialView("_ProjectItem", projectVM);
         }
 
+
+        public IActionResult CreateProjectItem(int id, int? PSSid, string? OC)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == claim);
+            ProjectVM projectVM = new()
+            {
+                project = _unitofwork.Project.GetFirstOrDefault(r => r.PId == id && r.CompId == user.CompId),
+                projectItem = new(),
+
+            };
+            projectVM.projectItem.OrderColumn = OC + "." + PSSid;
+            if (OC == null)
+            {
+                OC = id.ToString();
+                projectVM.projectItem.OrderColumn = OC;
+            }
+            projectVM.projectItem.PId = id;
+            projectVM.projectItem.PSSId = PSSid;
+            projectVM.projectItem.CompId = user.CompId;
+            return PartialView("_CreateProjectItem", projectVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateProjectItem(string submit, ProjectVM obj)
+        {
+            if (ModelState.IsValid && submit == "Save")
+            {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                obj.projectItem.Project = _unitofwork.Project.GetFirstOrDefault(r => r.PId == obj.projectItem.PId);
+                if (obj.projectItem.Project.PLevel == 1)
+                {
+                    obj.projectItem.Project.PLevel = 2;
+                }
+                obj.projectItem.ProPlevel = obj.projectItem.Project.PLevel;
+                
+                obj.projectItem.UpdaterId = claim;
+                _unitofwork.ProjectItem.Add(obj.projectItem);
+                _unitofwork.Save();
+                return RedirectToAction("Index", obj.projectItem.Project.PId);
+            }
+            return View(obj);
+        }
+
     }
 }

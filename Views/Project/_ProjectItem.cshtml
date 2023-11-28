@@ -74,14 +74,14 @@
                                 }
                             }
                             <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn">@Convert.ToDateTime(item.DueDate).Date.ToShortDateString()</td>
-                            <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn">@item.ProjectLevel.Level</td>
+                            <td></td>
                             <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn"><button value="@idd" class="doldurgstr btn btn-primary" type="button">Show</button></td>
                         </tr>
-            }
+                    }
                     <tr class="NewProjectItems">
                         <td colspan="9">
                             <div class="d-flex justify-content-center">
-                                <button type="button" id="AddToDo" class="btn btn-outline-dark" value1=@Model.project.PId value2="" value3=""><i class="bi bi-plus-square"></i>Add ToDo</button>
+                                <button type="button" id="AddNewItem" class="btn btn-outline-dark" value1=@Model.project.PId value2="" value3=""><i class="bi bi-plus-square"></i>Add New Item</button>
                             </div>
                         </td>
                     </tr>

@@ -1,0 +1,40 @@
+﻿@model SSProjectFollowUp.ViewModels.ProjectVM
+
+<tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td hidden>
+        <input asp-for="projectItem.PId" class="form-control" value="@Model.projectItem.PId" readonly active { width: auto;} />
+        <span asp-validation-for="projectItem.PId" class="text-danger"></span>
+        @if (@Model.projectItem.PSSId != null)
+        {
+            <input hiddenasp-for="projectItem.PSSId" class="form-control" value="@Model.projectItem.PSSId" readonly active { width: auto;} />
+
+        }
+        <input hidden asp-for="projectItem.CompId" class="form-control" value="@Model.projectItem.CompId" readonly active { width: auto;} />
+        <input asp-for="projectItem.OrderColumn" class="form-control" value="@Model.projectItem.OrderColumn" hidden readonly active { width: auto;} />
+    </td>
+    <td>
+        <textarea asp-for="projectItem.Description" class="form-control"></textarea>
+        <span asp-validation-for="projectItem.Description" class="text-danger"></span>
+    </td>
+    <td>
+        <input asp-for="projectItem.InCharge" class="form-control" id="Incharge" />
+        <span asp-validation-for="projectItem.InCharge" class="text-danger"></span>
+    </td>
+    <td>
+        <input class="StartDateChck form-check-input" type="checkbox" value="" id="flexCheckChecked">
+        <input disabled asp-for="projectItem.StartDate" type="date" class="form-control" value="null" />
+        <span asp-validation-for="projectItem.StartDate" class="text-danger"></span>
+    </td>
+    <td>
+        <input asp-for="projectItem.DueDate" type="date" class="form-control" />
+        <span asp-validation-for="projectItem.DueDate" class="text-danger"></span>
+    </td>
+    <td>
+        <button type="button" id="AddNewFile" class="btn btn-outline-primary">Add File</button>
+        <input name="submit" type="submit" value="Save" class="btn btn-primary" />
+        <a href="/CView/Index" class="btn btn-danger">Cancel</a>
+    </td>
+</tr>
