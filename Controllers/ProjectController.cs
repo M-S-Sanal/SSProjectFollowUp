@@ -34,7 +34,7 @@ namespace SSProjectFollowUp.Controllers
                 project = new Project()
             };
             projectVM.project.CompId = user.CompId;
-            projectVM.project.CreatedBy= user;
+            projectVM.project.CreatedBy = user;
             return View(projectVM);
         }
         [HttpPost]
@@ -88,7 +88,7 @@ namespace SSProjectFollowUp.Controllers
             };
             return PartialView("_ProjectDetail", projectVM);
         }
-        
+
 
 
         public IActionResult NewFile()
@@ -119,6 +119,12 @@ namespace SSProjectFollowUp.Controllers
             {
                 project = _unitofwork.Project.GetFirstOrDefault(r => r.PId == id && r.CompId == user.CompId),
                 projectItem = new(),
+                slworkers = _unitofwork.ApplicationUser.GetWith(r => r.CompId == user.CompId)
+                .Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString(),
+                })
 
             };
             projectVM.projectItem.OrderColumn = OC + "." + PSSid;
@@ -148,7 +154,7 @@ namespace SSProjectFollowUp.Controllers
                     obj.projectItem.Project.PLevel = 2;
                 }
                 obj.projectItem.ProPlevel = obj.projectItem.Project.PLevel;
-                
+
                 obj.projectItem.UpdaterId = claim;
                 _unitofwork.ProjectItem.Add(obj.projectItem);
                 _unitofwork.Save();
