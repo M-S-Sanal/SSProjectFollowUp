@@ -77,7 +77,23 @@
             $('#formm').attr('action', '/Project/CreateProjectItem');
             $(this).prop('disabled', true);
         });
-        
+        $(document).on('click', '[id^="AddNewFile"]', function (e) {
+
+            $.ajax({
+                url: '/Project/NewFile',
+                success: function (partialView) {
+                    if (document.getElementById('NewProjectItems2') == null) {
+                        const ff = '<tr ><td colspan="10" id="NewProjectItems2"></td></tr>';
+                        $(".NewProjectItems").before(ff);
+                    }
+                    $("#NewProjectItems2").append(partialView);
+                }
+            });
+        });
+        $(document).on("click", "#FileDelete", function () {
+            $(this).parent().parent().parent().remove();
+        });
+
 
 
         /************************** Functions **************************/

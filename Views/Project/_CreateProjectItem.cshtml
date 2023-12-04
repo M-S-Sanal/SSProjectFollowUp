@@ -36,14 +36,15 @@
         <span asp-validation-for="projectItem.DueDate" class="text-danger"></span>
     </td>
     <td>
-        <button type="button" id="AddNewFile" class="btn btn-outline-primary">Add File</button>
+    </td>
+    <td>
+        <button type="button" id="AddNewFile2" class="btn btn-outline-primary">Add File</button>
         <input name="submit" type="submit" value="Save" class="btn btn-primary" />
-        <a href="/CView/Index" class="btn btn-danger">Cancel</a>
+        <a href="/Project/Index" class="btn btn-danger">Cancel</a>
     </td>
 </tr>
 
-
-    <script src="~/lib/plugin/select2.min.js"></script>
+   <script src="~/lib/plugin/select2.min.js"></script>
     <script>
         $(document).ready(function () {
             $("#slworker").select2();

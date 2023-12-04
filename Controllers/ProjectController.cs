@@ -141,7 +141,7 @@ namespace SSProjectFollowUp.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateProjectItem(string submit, ProjectVM obj)
+        public IActionResult CreateProjectItem(string submit, ProjectVM obj, IFormFileCollection? files)
         {
             if (ModelState.IsValid && submit == "Save")
             {
@@ -154,7 +154,30 @@ namespace SSProjectFollowUp.Controllers
                     obj.projectItem.Project.PLevel = 2;
                 }
                 obj.projectItem.ProPlevel = obj.projectItem.Project.PLevel;
-
+                if (files != null)
+                {
+                    var uploads = Path.Combine(wwwRootPath, @"Documents");
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        string fileName = Guid.NewGuid().ToString();
+                        var extention = Path.GetExtension(files[i].FileName);
+                        using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + "-" + i.ToString() + extention), FileMode.Create))
+                        {
+                            files[i].CopyTo(fileStreams);
+                        }
+                        ProjectFile obj2 = new ProjectFile
+                        {
+                            FName = files[i].FileName,
+                            FNo = 0,
+                            FExtention = extention,
+                            FUrl = fileName,
+                        };
+                        obj2.Project = obj.projectItem.Project;
+                        obj2.CompId = obj.projectItem.CompId;
+                        obj2.ProjectItem = obj.projectItem;
+                        _unitofwork.ProjectFile.Add(obj2);
+                    }
+                }
                 obj.projectItem.UpdaterId = claim;
                 _unitofwork.ProjectItem.Add(obj.projectItem);
                 _unitofwork.Save();

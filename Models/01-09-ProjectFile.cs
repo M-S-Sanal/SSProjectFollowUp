@@ -17,6 +17,11 @@ namespace SSProjectFollowUp.Models
         [ForeignKey("PId")]
         [ValidateNever]
         public Project? Project { get; set; }
+
+        public int? PSId { get; set; }
+        [ForeignKey("PSId")]
+        [ValidateNever]
+        public ProjectItem? ProjectItem { get; set; }
         public int? CompId { get; set; }
         [ForeignKey("CompId")]
         [ValidateNever]
