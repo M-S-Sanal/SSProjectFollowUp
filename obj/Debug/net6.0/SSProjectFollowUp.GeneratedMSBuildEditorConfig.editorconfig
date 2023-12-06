@@ -251,6 +251,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdFxfQ3JlYXRlUHJvamVjdEl0ZW0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/SSProjectFollowUp/SSProjectFollowUp/Views/Project/_DetailProjectItem.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdFxfRGV0YWlsUHJvamVjdEl0ZW0uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/SSProjectFollowUp/SSProjectFollowUp/Views/Project/_FileAdd.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdFxfRmlsZUFkZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -261,6 +265,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/SSProjectFollowUp/SSProjectFollowUp/Views/Project/_ProjectDetail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdFxfUHJvamVjdERldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/SSProjectFollowUp/SSProjectFollowUp/Views/Project/_ProjectFile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvamVjdFxfUHJvamVjdEZpbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/SSProjectFollowUp/SSProjectFollowUp/Views/Project/_ProjectItem.cshtml]

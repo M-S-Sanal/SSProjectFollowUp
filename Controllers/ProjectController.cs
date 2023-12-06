@@ -185,6 +185,18 @@ namespace SSProjectFollowUp.Controllers
             }
             return View(obj);
         }
+        public IActionResult DetailProjectItem(int Id)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var compId = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == claim).CompId;
+            var projectVM = new ProjectVM
+            {
+                projectItem = _unitofwork.ProjectItem.GetFirstOrDefault(r => r.PSId == Id && r.CompId == compId),                
+                projectFiles = _unitofwork.ProjectFile.GetWith(r => r.PSId == Id && r.CompId == compId),                
+            };
+            return PartialView("_DetailProjectItem", projectVM);
+        }
 
     }
 }

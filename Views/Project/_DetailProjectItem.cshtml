@@ -1,0 +1,43 @@
+﻿@model SSProjectFollowUp.ViewModels.ProjectVM
+<div class="deldetail">
+    <div class="form-control-lg">
+        <label>Item No</label>
+        <input asp-for="projectItem.PSId" class="form-control" value="@Model.projectItem.PSId" readonly active { width: auto;} />
+        @if (@Model.projectItem.PSSId != null)
+        {
+            <label> Sub Item No</label>
+            <input asp-for="projectItem.PSSId" class="form-control" value="@Model.projectItem.PSSId" readonly active { width: auto;} />
+            <label> Order</label>
+            <input asp-for="projectItem.OrderColumn" class="form-control" value="@Model.projectItem.OrderColumn" readonly active { width: auto;} />
+
+        }
+        <input hidden asp-for="projectItem.PId" class="form-control" value="@Model.projectItem.PId" readonly active { width: auto;} />
+        <input hidden asp-for="projectItem.ProPlevel" class="form-control" value="@Model.projectItem.ProPlevel" readonly active { width: auto;} />
+    </div>
+    <div class="form-control-lg">
+        <label>Item Description</label>
+        <textarea asp-for="projectItem.Description" class="form-control updateItem" disabled></textarea>
+        <span asp-validation-for="projectItem.Description" class="text-danger"></span>
+    </div>
+    <div class="form-control-lg">
+        <label>Responsible</label>
+        <input asp-for="projectItem.InCharge" class="form-control updateItem" disabled />
+        <span asp-validation-for="projectItem.InCharge" class="text-danger"></span>
+    </div>
+    <div class="form-control-lg">
+        <label>Start Date</label>
+        <input class="StartDateChck form-check-input" type="checkbox" value="" id="flexCheckChecked" disabled>
+        <input asp-for="projectItem.StartDate" type="date" class="form-control" disabled />
+        <span asp-validation-for="projectItem.StartDate" class="text-danger"></span>
+    </div>
+    <div class="form-control-lg">
+        <label>End Date</label>
+        <input asp-for="projectItem.DueDate" type="date" class="form-control updateItem" disabled />
+        <span asp-validation-for="projectItem.DueDate" class="text-danger"></span>
+    </div>
+    <div class="form-control-lg">
+    </div>
+    <div class="File">
+        <partial name="_ProjectFile" model="@Model" />
+    </div>
+</div>

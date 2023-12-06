@@ -12,7 +12,7 @@
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-Details-tab" data-bs-toggle="tab" data-bs-target="#nav-Details" type="button" role="tab" aria-controls="nav-Details" aria-selected="true">Details</button>
                     <button class="nav-link" id="nav-List-tab" data-bs-toggle="tab" data-bs-target="#nav-List" type="button" role="tab" aria-controls="nav-List" aria-selected="false">List</button>
-                    <button class="nav-link" hidden id="nav-DetailToDo-tab" data-bs-toggle="tab" data-bs-target="#nav-DetailToDo" type="button" role="tab" aria-controls="nav-DetailToDo" aria-selected="false">DetailToDo</button>
+                    <button class="nav-link" hidden id="nav-ItemDetail-tab" data-bs-toggle="tab" data-bs-target="#nav-Item-Detail" type="button" role="tab" aria-controls="nav-Item-Detail" aria-selected="false">DetailToDo</button>
                     <button class="nav-link" id="nav-Gantt-tab" data-bs-toggle="tab" data-bs-target="#nav-Gantt" type="button" role="tab" aria-controls="nav-Gantt" aria-selected="false" disabled>Gantt</button>
                 </div>
             </nav>
@@ -27,7 +27,7 @@
                     <div class="ProjectFill">
                     </div>
                 </div>
-                <div class="tab-pane fade" id="nav-DetailToDo" role="tabpanel" aria-labelledby="nav-DetailToDo-tab" tabindex="0">
+                <div class="tab-pane fade" id="nav-Item-Detail" role="tabpanel" aria-labelledby="nav-ItemDetail-tab" tabindex="0">
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab1" role="tablist">
                             <button class="nav-link active" id="nav2-Details-tab" data-bs-toggle="tab" data-bs-target="#nav2-Details" type="button" role="tab" aria-controls="nav-Details" hidden aria-selected="true">Details</button>
@@ -40,7 +40,7 @@
                                 <button type="button" id="UpdateToDo" class="btn btn-outline-dark" value="">Update</button>
                                 <button type="button" id="ShowResultsList" class="btn btn-outline-dark" value="">Results</button>
                             </div>
-                            <div class="DetailToDo">
+                            <div class="DetailProjectItem">
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav2-Result" role="tabpanel" aria-labelledby="nav2-Result-Tab" tabindex="1">
@@ -93,6 +93,22 @@
         $(document).on("click", "#FileDelete", function () {
             $(this).parent().parent().parent().remove();
         });
+        /* DetailTodo nav-tab Show */
+        $(document).on('click', '.doldurgstr', function (e) {
+            $('.Doldur').parent().removeClass("table-active");
+            activaTab($(this).attr("value"));
+            $(this).parent().addClass("table-active");
+        });
+        /* Auto DetailTodo nav-tab Hide */
+        $(document).click(function (e) {
+
+            if ($("#nav-ItemDetail-tab").hasClass('active')) {
+                $("#nav-ItemDetail-tab").prop('hidden', false);
+            }
+            else {
+                $("#nav-ItemDetail-tab").prop('hidden', true);
+            }
+        });
 
 
 
@@ -113,6 +129,11 @@
                 }
             });
         };
-
+        function activaTab(id) {
+            $('.ProjectItemDetail').empty();
+            partial('DetailProjectItem', id)
+            $("#nav-ItemDetail-tab").prop('hidden', false);;
+            $("#nav-ItemDetail-tab").click();
+        };
     </script>
 }
