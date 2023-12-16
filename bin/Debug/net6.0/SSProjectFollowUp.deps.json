@@ -41,6 +41,7 @@
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.5",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.5",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "6.0.16",
+          "Mvc2Futures": "2.0.50217",
           "bootstrap": "5.3.2",
           "bootstrap-select": "1.13.18",
           "popper.js": "1.16.1",
@@ -2212,6 +2213,17 @@
             "assemblyVersion": "2.2.0.0",
             "fileVersion": "2.2.1.1"
           }
+        }
+      },
+      "Mvc2Futures/2.0.50217": {
+        "runtime": {
+          "lib/Microsoft.Web.Mvc.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.50217.0"
+          }
+        },
+        "compile": {
+          "lib/Microsoft.Web.Mvc.dll": {}
         }
       },
       "NETStandard.Library/1.6.1": {
@@ -5862,6 +5874,13 @@
       "sha512": "sha512-KZYeKBET/2Z0gY1WlTAK7+RHTl7GSbtvTLDXEZZojUdAPqpQNDL6tHv7VUpqfX5VEOh+uRGKaZXkuD253nEOBQ==",
       "path": "mono.texttemplating/2.2.1",
       "hashPath": "mono.texttemplating.2.2.1.nupkg.sha512"
+    },
+    "Mvc2Futures/2.0.50217": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-90ilYxgj4s82mfgVegs6NujfBw5zbR49SlIWW/vtjRXu6Trdi9W1xh/LlHu6or47IeBI2AhGKsqnfm7HFCBBlA==",
+      "path": "mvc2futures/2.0.50217",
+      "hashPath": "mvc2futures.2.0.50217.nupkg.sha512"
     },
     "NETStandard.Library/1.6.1": {
       "type": "package",

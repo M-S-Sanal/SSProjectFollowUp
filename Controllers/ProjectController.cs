@@ -198,5 +198,53 @@ namespace SSProjectFollowUp.Controllers
             return PartialView("_DetailProjectItem", projectVM);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateProjectItem(string submit, IEnumerable<ProjectFile> obj22, IFormFileCollection? files, ProjectVM obj)
+        {
+            if (ModelState.IsValid && submit == "Save")
+            {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (files != null)
+                {
+                    var uploads = Path.Combine(wwwRootPath, @"Documents");
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        string fileName = Guid.NewGuid().ToString();
+                        var extention = Path.GetExtension(files[i].FileName);
+                        using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + "-" + i.ToString() + extention), FileMode.Create))
+                        {
+                            files[i].CopyTo(fileStreams);
+                        }
+                        ProjectFile obj2 = new ProjectFile
+                        {
+                            FName = files[i].FileName,
+                            FNo = 0,
+                            FExtention = extention,
+                            FUrl = fileName,
+                        };
+                        obj2.PSId = obj.projectItem.PSId;
+                        _unitofwork.ProjectFile.Add(obj2);
+                    }
+
+
+                    var projectItem = _unitofwork.ProjectItem.GetFirstOrDefault(r=>r.PSId==obj.projectItem.PSId);
+                    projectItem.Description = obj.projectItem.Description;
+                    projectItem.DueDate = obj.projectItem.DueDate;
+                    projectItem.StartDate = obj.projectItem.StartDate;
+
+                    projectItem.UpdatedAt = DateTime.Now;
+                    projectItem.UpdaterId = claim;
+                    
+                    _unitofwork.ProjectItem.Update(projectItem);
+                    _unitofwork.Save();
+                    return RedirectToAction("Index", obj.projectItem.PId);
+                }
+            }
+            return View(obj);
+
+        }
     }
 }

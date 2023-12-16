@@ -37,7 +37,7 @@
                     <div class="tab-content" id="nav-tabContent2">
                         <div class="tab-pane fade show active" id="nav2-Details" role="tabpanel" aria-labelledby="nav2-Details-Tab" tabindex="1">
                             <div class="button3">
-                                <button type="button" id="UpdateToDo" class="btn btn-outline-dark" value="">Update</button>
+                                <button type="button" id="UpdateItem" class="btn btn-outline-dark" value="">Update</button>
                                 <button type="button" id="ShowResultsList" class="btn btn-outline-dark" value="">Results</button>
                             </div>
                             <div class="DetailProjectItem">
@@ -76,6 +76,13 @@
             });
             $('#formm').attr('action', '/Project/CreateProjectItem');
             $(this).prop('disabled', true);
+        });
+        /* Updating Project sub step*/
+        $(document).on('click', '#UpdateItem', function (e) {
+            $(".updateItem").removeAttr('disabled');
+            createbuttons("#UpdateItem");
+            $('#formm').attr('action', '/Project/UpdateProjectItem');
+            $("#UpdateItem").attr('disabled', true);
         });
         $(document).on('click', '[id^="AddNewFile"]', function (e) {
 
@@ -134,6 +141,16 @@
             partial('DetailProjectItem', id)
             $("#nav-ItemDetail-tab").prop('hidden', false);;
             $("#nav-ItemDetail-tab").click();
+        };
+        function createbuttons(partialarea) {
+            const ff = '<span class="border border-1 border-start border-dark" style="margin-right:5px"></span>';
+            $(partialarea).parent().append(ff);
+            const btn1 = ' <button type="button" id="AddNewFile" class="btn btn-outline-dark" value="">New File</button>';
+            $(partialarea).parent().append(btn1);
+            const btn2 = '<input name="submit" type="submit" value="Save" class="btn btn-primary" /> ';
+            $(partialarea).parent().append(btn2);
+            const btn3 = '<a href="/Project/Index" class="btn btn-danger">Cancel</a>';
+            $(partialarea).parent().append(btn3);
         };
     </script>
 }

@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Project\_ProjectItemResult.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Include="wwwroot\EmailSender.cs" />
     <Compile Include="wwwroot\SD.cs" />
   </ItemGroup>
@@ -24,12 +28,25 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
+    <PackageReference Include="Mvc2Futures" Version="2.0.50217" />
     <PackageReference Include="popper.js" Version="1.16.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\lib\plugin\" />
     <Folder Include="wwwroot\Documents\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Project\_ProjectItemResult.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Project\_ProjectItemResult.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Project\_ProjectItemResult.cshtml" />
   </ItemGroup>
 
 </Project>

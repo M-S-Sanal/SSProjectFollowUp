@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/4yZFzQtLLeEKTvqytOuWnzGQ6zNo+nTgXbkI78Lp9GWEj0SZPYhXs9NUGKCwEFDNw635Wt36EY1E1gN72uCSg==",
+  "dgSpecHash": "tNu6gj0Vrp2Oq5bX0xQJvhKtYDOW8KNvkoU/nOfjEQe5gdYi1lMxRr4MXSzxwB5NpG05B+hDEGiMYv5fzQ6nhA==",
   "success": true,
   "projectFilePath": "E:\\SSProjectFollowUp\\SSProjectFollowUp\\SSProjectFollowUp.csproj",
   "expectedPackageFiles": [
@@ -132,6 +132,7 @@
     "C:\\Users\\mselm\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\mselm\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
     "C:\\Users\\mselm\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
+    "C:\\Users\\mselm\\.nuget\\packages\\mvc2futures\\2.0.50217\\mvc2futures.2.0.50217.nupkg.sha512",
     "C:\\Users\\mselm\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\mselm\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\mselm\\.nuget\\packages\\nuget.common\\6.6.1\\nuget.common.6.6.1.nupkg.sha512",
@@ -244,5 +245,16 @@
     "C:\\Users\\mselm\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\mselm\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Mvc2Futures 2.0.50217' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Mvc2Futures",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }
