@@ -19,6 +19,7 @@ namespace SSProjectFollowUp.Data
         public DbSet<UserApproval> UserApprovals { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectItem> ProjectItems { get; set; }
+        public DbSet<ProjectItemResult> ProjectItemResults { get; set; }
         public DbSet<ProjectFile> ProjectFiles { get; set; }
         public DbSet<ProjectLevel> ProjectLevels { get; set; }
 

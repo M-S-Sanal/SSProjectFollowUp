@@ -22,6 +22,7 @@ namespace SSProjectFollowUp.Repository
 
             Project = new ProjectRepository(_db);
             ProjectItem = new ProjectItemRepository(_db);
+            ProjectItemResult = new ProjectItemResultRepository(_db);
             ProjectFile = new ProjectFileRepository(_db);
             ProjectLevel = new ProjectLevelRepository(_db);
         }
@@ -36,6 +37,7 @@ namespace SSProjectFollowUp.Repository
 
         public IProjectRepository Project { get; private set; }
         public IProjectItemRepository ProjectItem { get; private set; }
+        public IProjectItemResultRepository ProjectItemResult { get; private set; }
         public IProjectFileRepository ProjectFile { get; private set; }
         public IProjectLevelRepository ProjectLevel { get; private set; }
         public void Save()

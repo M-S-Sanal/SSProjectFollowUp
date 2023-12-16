@@ -1,0 +1,37 @@
+﻿@model SSProjectFollowUp.ViewModels.ProjectVM
+
+<div>
+    <div class="row col-12">
+
+        <div class="col col-3">
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            Date
+                        </th>
+                        <th>
+                            Result
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.projectItemResults)
+                    {
+                        <tr>
+                            <td type="button" id="Result" value="@item.PSRId">@item.CreatedAt</td>
+                            <td type="button" id="Result" value="@item.PSRId">@item.PLevel</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-8">
+            <div class="AddResult">
+            </div>
+            <div class="Result">
+            </div>
+        </div>
+    </div>
+</div>
+

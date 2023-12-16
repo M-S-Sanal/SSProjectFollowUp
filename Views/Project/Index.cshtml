@@ -116,7 +116,14 @@
                 $("#nav-ItemDetail-tab").prop('hidden', true);
             }
         });
-
+        /* Results Area*/
+        $(document).on('click', '#ShowResultsList', function (e) {
+            $(".deldetail").remove();
+            activaTab2("nav2-Result-tab", $(this).attr("value"));
+            $('#formm').attr('action', '/Project/AddResult');
+            $("#AddResult").attr('value', $(this).attr("value"));
+        });
+        
 
 
         /************************** Functions **************************/
@@ -141,6 +148,11 @@
             partial('DetailProjectItem', id)
             $("#nav-ItemDetail-tab").prop('hidden', false);;
             $("#nav-ItemDetail-tab").click();
+        };
+        function activaTab2(tabb, id) {
+            $('.del' + tabb).remove();
+            partial('ShowResultsList', id)
+            $("#" + tabb).click();
         };
         function createbuttons(partialarea) {
             const ff = '<span class="border border-1 border-start border-dark" style="margin-right:5px"></span>';
