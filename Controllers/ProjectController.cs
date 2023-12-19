@@ -258,5 +258,44 @@ namespace SSProjectFollowUp.Controllers
             return PartialView("_ProjectItemResults", projectVM);
         }
 
+        public IActionResult AddResult(int id)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var compId = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == claim).CompId;
+            ProjectVM projectVM = new()
+            {
+                projectItem = _unitofwork.ProjectItem.GetFirstOrDefaultWith(r => r.PSId == id),
+                projectItemResult = new(),
+                slworkers = _unitofwork.ApplicationUser.GetWith(r => r.CompId == compId)
+                .Select(i => new SelectListItem
+                {
+                    Text = i.Name,
+                    Value = i.Id.ToString(),
+                })
+            };
+            return PartialView("_NewProjectItemResult", projectVM);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddResult(string submit, ProjectVM obj)
+        {
+            if (ModelState.IsValid && submit == "Save")
+            {
+                var orderColumn = _unitofwork.ProjectItem.Where(r => r.PSId == obj.projectItemResult.PSId).ToList()[0].OrderColumn;
+                if (orderColumn.IndexOf(".") > 0)
+                {
+                    foreach (var item in _unitofwork.ProjectItem.Where(r => r.OrderColumn == orderColumn + "%"))
+                    {
+                        _unitofwork.ProjectItem.Update(item);
+                    }
+                }
+                _unitofwork.ProjectItemResult.Add(obj.projectItemResult);
+                _unitofwork.Save();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
+
     }
 }

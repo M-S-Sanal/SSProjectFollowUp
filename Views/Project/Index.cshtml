@@ -85,7 +85,6 @@
             $("#UpdateItem").attr('disabled', true);
         });
         $(document).on('click', '[id^="AddNewFile"]', function (e) {
-
             $.ajax({
                 url: '/Project/NewFile',
                 success: function (partialView) {
@@ -96,6 +95,15 @@
                     $("#NewProjectItems2").append(partialView);
                 }
             });
+        });
+        /* Fill project details */
+        $(document).on('click', '.Doldur', function (e) {
+            $('.Doldur').parent().removeClass("table-active");
+            $('.DelAlt').remove();
+            $('#UpdateToDo').attr("value", $(this).attr("value1"));
+            $('#ShowResultsList').attr("value", $(this).attr("value1"));
+            $(this).parent().addClass("table-active");
+            partial('Alt', $(this).attr("value1"))
         });
         $(document).on("click", "#FileDelete", function () {
             $(this).parent().parent().parent().remove();
@@ -123,7 +131,11 @@
             $('#formm').attr('action', '/Project/AddResult');
             $("#AddResult").attr('value', $(this).attr("value"));
         });
-        
+        /* Adding Results */
+        $(document).on('click', '#AddResult', function (e) {
+            $(".delResult0").remove();
+            partial('AddResult', $(this).attr("value"));
+        });
 
 
         /************************** Functions **************************/

@@ -1,0 +1,36 @@
+﻿@model SSProjectFollowUp.ViewModels.ProjectVM
+<div class="delResult0">    
+    <div class="row ResultDetails">
+        <input asp-for="projectItemResult.PSRId" value="@Model.projectItemResult.PSRId" hidden active />
+        <input asp-for="projectItemResult.PSId" value="@Model.projectItem.PSId" hidden active />
+        <div class="form-control">
+            <label>User Id</label>
+            <link href="~/lib/plugin/select2.min.css" rel="stylesheet" />
+                <select asp-for="projectItemResult.IncharCharge" asp-items="@Model.slworkers" class="" id="slworker">
+            </select>
+            <span asp-validation-for="projectItemResult.IncharCharge" class="text-danger"></span>
+        </div>
+        <div class="form-control">
+            <label>Situation</label>
+            <textarea asp-for="projectItemResult.PSRComment" value="@Model.projectItemResult.PSRComment" active></textarea>
+        </div>
+        <div class="form-control">
+            <label>Result</label>
+        </div>
+        <div class="File">
+        </div>
+        <div class="form-control">
+            <input name="submit" type="submit" value="Save" class="btn btn-primary" />
+            <a href="/Project/Index" class="btn btn-danger">Cancel</a>
+            <span class="border border-1 border-start border-dark" style="margin-right:5px"></span>
+            <button type="button" id="AddNewFile" class="btn btn-outline-dark" value="">New File</button>
+        </div>
+    </div>
+    
+</div>
+<script src="~/lib/plugin/select2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#slworker").select2();
+    });
+</script>
