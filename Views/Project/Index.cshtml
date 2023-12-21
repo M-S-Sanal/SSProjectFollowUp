@@ -137,6 +137,11 @@
             partial('AddResult', $(this).attr("value"));
         });
 
+        $(document).on('click', '#Result', function (e) {
+            $('.delResult0').remove();
+            partial('Result', $(this).attr('value'));
+        });
+
 
         /************************** Functions **************************/
         function process(zz, zy, qy) {

@@ -297,5 +297,14 @@ namespace SSProjectFollowUp.Controllers
             return View(obj);
         }
 
+        /* Result Areas */
+        public IActionResult Result(int id)
+        {
+            ProjectVM projectVM = new()
+            {
+                projectItemResult = _unitofwork.ProjectItemResult.GetFirstOrDefaultWith(r => r.PSRId == id),
+            };
+            return PartialView("_ProjectItemResult", projectVM);
+        }
     }
 }
