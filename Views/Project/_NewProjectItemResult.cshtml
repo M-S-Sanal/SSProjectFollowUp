@@ -16,14 +16,18 @@
         </div>
         <div class="form-control">
             <label>Result</label>
+            <select asp-for="projectItemResult.PLevel" asp-items="@Model.projectLevels" class="form-select">
+                <option disabled selected>-- Select Level-- </option>
+            </select>
+            <span asp-validation-for="projectItemResult.PLevel" class="text-danger"></span>
         </div>
-        <div class="File">
+        <div id="NewProjectItems2" class="form-control">
         </div>
         <div class="form-control">
             <input name="submit" type="submit" value="Save" class="btn btn-primary" />
             <a href="/Project/Index" class="btn btn-danger">Cancel</a>
             <span class="border border-1 border-start border-dark" style="margin-right:5px"></span>
-            <button type="button" id="AddNewFile" class="btn btn-outline-dark" value="">New File</button>
+            <button type="button" id="AddNewFile2" class="btn btn-outline-dark" value="">New File</button>
         </div>
     </div>
     

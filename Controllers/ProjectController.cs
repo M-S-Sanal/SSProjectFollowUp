@@ -272,16 +272,44 @@ namespace SSProjectFollowUp.Controllers
                 {
                     Text = i.Name,
                     Value = i.Id.ToString(),
-                })
+                }),
+                projectLevels = _unitofwork.ProjectLevel.Where(r => r.Area == "ProjectItem").Select(i => new SelectListItem
+                {
+                    Text = i.Level,
+                    Value = i.PLevel.ToString()
+                }),
             };
             return PartialView("_NewProjectItemResult", projectVM);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddResult(string submit, ProjectVM obj)
+        public IActionResult AddResult(string submit, ProjectVM obj, IFormFileCollection? files)
         {
             if (ModelState.IsValid && submit == "Save")
             {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (files != null)
+                {
+                    var uploads = Path.Combine(wwwRootPath, @"Documents");
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        string fileName = Guid.NewGuid().ToString();
+                        var extention = Path.GetExtension(files[i].FileName);
+                        using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + "-" + i.ToString() + extention), FileMode.Create))
+                        {
+                            files[i].CopyTo(fileStreams);
+                        }
+                        ProjectFile obj2 = new ProjectFile
+                        {
+                            FName = files[i].FileName,
+                            FNo = 0,
+                            FExtention = extention,
+                            FUrl = fileName,
+                        };
+                        obj2.ProjectItemResult= obj.projectItemResult;
+                        _unitofwork.ProjectFile.Add(obj2);
+                    }
+                }
                 var orderColumn = _unitofwork.ProjectItem.Where(r => r.PSId == obj.projectItemResult.PSId).ToList()[0].OrderColumn;
                 if (orderColumn.IndexOf(".") > 0)
                 {
