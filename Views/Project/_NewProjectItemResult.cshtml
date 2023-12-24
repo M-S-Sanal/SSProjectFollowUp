@@ -2,20 +2,20 @@
 <div class="delResult0">    
     <div class="row ResultDetails">
         <input asp-for="projectItemResult.PSRId" value="@Model.projectItemResult.PSRId" hidden active />
-        <input asp-for="projectItemResult.PSId" value="@Model.projectItem.PSId" hidden active />
+        <input asp-for="projectItemResult.PSId" value="@Model.projectItemResult.PSId" hidden active />
         <div class="form-control">
-            <label>User Id</label>
+            <label class="form-label">User Id</label>
             <link href="~/lib/plugin/select2.min.css" rel="stylesheet" />
-                <select asp-for="projectItemResult.IncharCharge" asp-items="@Model.slworkers" class="" id="slworker">
+                <select asp-for="projectItemResult.CreaterId" asp-items="@Model.slworkers" class="" id="slworker">
             </select>
-            <span asp-validation-for="projectItemResult.IncharCharge" class="text-danger"></span>
+            <span asp-validation-for="projectItemResult.CreaterId" class="text-danger"></span>
         </div>
         <div class="form-control">
-            <label>Situation</label>
-            <textarea asp-for="projectItemResult.PSRComment" value="@Model.projectItemResult.PSRComment" active></textarea>
+            <label class="form-label">Situation</label>
+            <textarea asp-for="projectItemResult.PSRComment" value="@Model.projectItemResult.PSRComment" active class="form-text row" style="margin:inherit;min-width: 100%"></textarea>
         </div>
         <div class="form-control">
-            <label>Result</label>
+            <label class="form-label">Result</label>
             <select asp-for="projectItemResult.PLevel" asp-items="@Model.projectLevels" class="form-select">
                 <option disabled selected>-- Select Level-- </option>
             </select>

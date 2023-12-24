@@ -192,8 +192,8 @@ namespace SSProjectFollowUp.Controllers
             var compId = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == claim).CompId;
             var projectVM = new ProjectVM
             {
-                projectItem = _unitofwork.ProjectItem.GetFirstOrDefault(r => r.PSId == Id && r.CompId == compId),                
-                projectFiles = _unitofwork.ProjectFile.GetWith(r => r.PSId == Id && r.CompId == compId),                
+                projectItem = _unitofwork.ProjectItem.GetFirstOrDefault(r => r.PSId == Id && r.CompId == compId),
+                projectFiles = _unitofwork.ProjectFile.GetWith(r => r.PSId == Id && r.CompId == compId),
             };
             return PartialView("_DetailProjectItem", projectVM);
         }
@@ -230,14 +230,14 @@ namespace SSProjectFollowUp.Controllers
                     }
 
 
-                    var projectItem = _unitofwork.ProjectItem.GetFirstOrDefault(r=>r.PSId==obj.projectItem.PSId);
+                    var projectItem = _unitofwork.ProjectItem.GetFirstOrDefault(r => r.PSId == obj.projectItem.PSId);
                     projectItem.Description = obj.projectItem.Description;
                     projectItem.DueDate = obj.projectItem.DueDate;
                     projectItem.StartDate = obj.projectItem.StartDate;
 
                     projectItem.UpdatedAt = DateTime.Now;
                     projectItem.UpdaterId = claim;
-                    
+
                     _unitofwork.ProjectItem.Update(projectItem);
                     _unitofwork.Save();
                     return RedirectToAction("Index", obj.projectItem.PId);
@@ -247,13 +247,13 @@ namespace SSProjectFollowUp.Controllers
 
         }
         /* Result Areas */
-        
+
 
         public IActionResult ShowResultsList(int id)
         {
             ProjectVM projectVM = new()
             {
-                projectItemResults = _unitofwork.ProjectItemResult.GetWith(r => r.PSId == id),
+                projectItemResults = _unitofwork.ProjectItemResult.GetWith(r => r.PSId == id, includeProperties: "ProjectLevel")
             };
             return PartialView("_ProjectItemResults", projectVM);
         }
@@ -306,7 +306,7 @@ namespace SSProjectFollowUp.Controllers
                             FExtention = extention,
                             FUrl = fileName,
                         };
-                        obj2.ProjectItemResult= obj.projectItemResult;
+                        obj2.ProjectItemResult = obj.projectItemResult;
                         _unitofwork.ProjectFile.Add(obj2);
                     }
                 }
@@ -330,9 +330,50 @@ namespace SSProjectFollowUp.Controllers
         {
             ProjectVM projectVM = new()
             {
-                projectItemResult = _unitofwork.ProjectItemResult.GetFirstOrDefaultWith(r => r.PSRId == id),
+                projectItemResult = _unitofwork.ProjectItemResult.GetFirstOrDefaultWith(r => r.PSRId == id, includeProperties: "ProjectLevel,CreatedBy"),
+                projectLevels = _unitofwork.ProjectLevel.Where(r => r.Area == "ProjectItem").Select(i => new SelectListItem
+                {
+                    Text = i.Level,
+                    Value = i.PLevel.ToString()
+                }),
             };
             return PartialView("_ProjectItemResult", projectVM);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateResult(string submit, ProjectVM obj, IFormFileCollection? files)
+        {
+            if (ModelState.IsValid && submit == "Save")
+            {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (files != null)
+                {
+                    var uploads = Path.Combine(wwwRootPath, @"Documents");
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        string fileName = Guid.NewGuid().ToString();
+                        var extention = Path.GetExtension(files[i].FileName);
+                        using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + "-" + i.ToString() + extention), FileMode.Create))
+                        {
+                            files[i].CopyTo(fileStreams);
+                        }
+                        ProjectFile obj2 = new ProjectFile
+                        {
+                            FName = files[i].FileName,
+                            FNo = 0,
+                            FExtention = extention,
+                            FUrl = fileName,
+                        };
+                        obj2.ProjectItemResult = obj.projectItemResult;
+                        _unitofwork.ProjectFile.Add(obj2);
+                    }
+                    
+                    _unitofwork.ProjectItemResult.Update(obj.projectItemResult);
+                    _unitofwork.Save();
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(obj);
         }
     }
 }

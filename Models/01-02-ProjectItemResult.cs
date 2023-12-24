@@ -11,7 +11,6 @@ namespace SSProjectFollowUp.Models
         [Column(Order = 0)]
         public int PSRId { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
-        public string IncharCharge { get; set; }
         public int PSRResult { get; set; }
         public string PSRComment { get; set; }
 

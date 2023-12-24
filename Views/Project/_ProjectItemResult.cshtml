@@ -1,17 +1,28 @@
 ﻿@model SSProjectFollowUp.ViewModels.ProjectVM
 
 <div class="row delResult0">
-    <div class="form-control">
-        <label>User</label>
-        <input asp-for="projectItemResult.IncharCharge" readonly />
+    <input asp-for="projectItemResult.PSRId" value="@Model.projectItemResult.PSRId" hidden active />
+    <input asp-for="projectItemResult.PSId" value="@Model.projectItemResult.PSId" hidden active />
+    <div hidden class="form-control">
+        <label class="form-label">UserId</label>
+        <input asp-for="projectItemResult.CreaterId" class="form-control" />
     </div>
     <div class="form-control">
-        <label>Result</label>
-        <input asp-for="projectItemResult.PSRResult" readonly />
+        <label class="form-label">User</label>
+        <input asp-for="projectItemResult.CreatedBy.UserName" disabled class="form-control" />
     </div>
     <div class="form-control">
-        <label>Comment</label>
-        <textarea asp-for="projectItemResult.PSRComment" readonly></textarea>
+        <label class="form-label">Result</label>
+        <select asp-for="projectItemResult.PLevel" asp-items="@Model.projectLevels" disabled class="form-select updateItem">
+            <option disabled selected>-- Select Level-- </option>
+        </select>
+        <span asp-validation-for="projectItemResult.PLevel" class="text-danger"></span>
+    </div>
+    <div class="form-control">
+        <label class="form-label">Comment</label>
+        <textarea asp-for="projectItemResult.PSRComment" disabled class="updateItem form-text" style="min-width:100%;margin:inherit"></textarea>
+    </div>
+    <div id="NewProjectItems2" class="form-control">
     </div>
     
 </div>

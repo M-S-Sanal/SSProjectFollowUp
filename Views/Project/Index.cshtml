@@ -46,6 +46,8 @@
                         <div class="tab-pane fade" id="nav2-Result" role="tabpanel" aria-labelledby="nav2-Result-Tab" tabindex="1">
                             <div class="button4">
                                 <button class="btn btn-outline-primary" id="AddResult" type="button" value="">Add Result</button>
+                                <button class="btn btn-outline-primary" id="UpdateResult" type="button" value="" hidden >Update Result</button>
+                                
                             </div>
                             <div class="ShowResultsList">
                             </div>
@@ -140,8 +142,15 @@
         $(document).on('click', '#Result', function (e) {
             $('.delResult0').remove();
             partial('Result', $(this).attr('value'));
+            $("#UpdateResult").attr('hidden', false);
         });
-
+        /* Updating Project sub step*/
+        $(document).on('click', '#UpdateResult', function (e) {
+            $(".updateItem").removeAttr('disabled');
+            createbuttons("#UpdateResult");
+            $('#formm').attr('action', '/Project/UpdateResult');
+            $("#UpdateItem").attr('disabled', true);
+        });
 
         /************************** Functions **************************/
         function process(zz, zy, qy) {
