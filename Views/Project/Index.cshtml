@@ -151,6 +151,15 @@
             $('#formm').attr('action', '/Project/UpdateResult');
             $("#UpdateItem").attr('disabled', true);
         });
+        /* If necessary Todo StartDate check box */
+        $(document).on('click', '.StartDateChck', function (e) {
+            if ($(this).prop("checked") != "") {
+                $(".StartDateChck").siblings().prop("disabled", false);
+            }
+            else {
+                $(".StartDateChck").siblings().prop("disabled", true);
+            }
+        });
 
         /************************** Functions **************************/
         function process(zz, zy, qy) {

@@ -107,7 +107,7 @@ namespace SSProjectFollowUp.Controllers
             var projectVM = new ProjectVM
             {
                 project = _unitofwork.Project.GetFirstOrDefault(r => r.PId == Id && r.CompId == compId),
-                projectItems = _unitofwork.ProjectItem.GetWith(r => r.PId == Id && r.CompId == compId, includeProperties: "Project").OrderBy(r => r.OrderColumn + "." + r.PSId),
+                projectItems = _unitofwork.ProjectItem.GetWith(r => r.PId == Id && r.CompId == compId, includeProperties: "Project,InChargeUser").OrderBy(r => r.OrderColumn + "." + r.PSId),
             };
             return PartialView("_ProjectItem", projectVM);
         }

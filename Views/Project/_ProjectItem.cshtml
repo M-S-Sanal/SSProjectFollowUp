@@ -59,7 +59,7 @@
                             <td type="button" class="Doldur rowww_@item.OrderColumn.Count(t => t == '.') fs-6" value1="@idd" value2="@item.OrderColumn">@item.PSId</td>
                             <td type="button" class="Doldur rowww_@item.OrderColumn.Count(t => t == '.') fs-6" value1="@idd" value2="@item.OrderColumn">@item.PSSId</td>
                             <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn"><texarea>@item.Description</texarea></td>
-                            <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn">@item.InCharge</td>
+                            <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn">@item.InChargeUser.UserName</td>
 
                             @{
                                 if (Convert.ToDateTime(item.StartDate) != Convert.ToDateTime(null))

@@ -2,7 +2,7 @@
 <div class="deldetail">
     <div class="form-control-lg">
         <label>Item No</label>
-        <input asp-for="projectItem.PSId" class="form-control" value="@Model.projectItem.PSId" readonly active { width: auto;} />
+        <input asp-for="projectItem.PSId" class="form-control" value="@Model.projectItem.PSId" disabled readonly active { width: auto;} />
         @if (@Model.projectItem.PSSId != null)
         {
             <label> Sub Item No</label>
