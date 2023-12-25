@@ -18,9 +18,12 @@ namespace SSProjectFollowUp.Controllers
         }
         public IActionResult Index()
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var user = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == claim);
             ProjectVM projectVM = new ProjectVM()
             {
-                projects = _unitofwork.Project.GetAll()
+                projects = _unitofwork.Project.GetWith(r => r.CompId == user.CompId, includeProperties: "ProjectLevel"),
             };
             return View(projectVM);
         }
