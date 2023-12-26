@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Project\EditProject.cshtml" />
     <Content Remove="Views\Project\_ProjectItemResult.cshtml" />
   </ItemGroup>
 
@@ -42,11 +43,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Project\EditProject.cshtml" />
     <_ContentIncludedByDefault Remove="Views\Project\_ProjectItemResult.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Project\EditProject.cshtml" />
     <None Include="Views\Project\_ProjectItemResult.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Project\EditProject.cshtml" />
   </ItemGroup>
 
 </Project>

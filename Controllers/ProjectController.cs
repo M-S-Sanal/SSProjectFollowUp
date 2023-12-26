@@ -80,6 +80,25 @@ namespace SSProjectFollowUp.Controllers
             }
             return View(obj);
         }
+        public IActionResult EditProject(int id)
+        {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var compId = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == claim).CompId;
+            var projectVM = new ProjectVM
+            {
+                project = _unitofwork.Project.GetFirstOrDefaultWith(r => r.PId == id, includeProperties: "CreatedBy,UpdatedBy,ProjectLevel"),
+                projectItems = _unitofwork.ProjectItem.GetWith(r => r.PId == id && r.CompId == compId, includeProperties: "ProjectLevel"),
+                projectLevels = _unitofwork.ProjectLevel.Where(r => r.Area == "ProjectLevel").Select(i => new SelectListItem
+                {
+                    Text = i.Level,
+                    Value = i.PLevel.ToString()
+                }),
+                projectFiles=_unitofwork.ProjectFile.GetWith(r => r.PId == id )
+            };
+            return View(projectVM);
+        }
+
         public IActionResult ProjectDetail(int Id)
         {
             var claimsIdentity = (ClaimsIdentity)User.Identity;

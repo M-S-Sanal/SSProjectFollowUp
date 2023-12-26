@@ -2,6 +2,7 @@
 <form asp-controller="" asp-action="" enctype="multipart/form-data" id="formm">
     <div class="buttons">
         <a asp-controller="Project" asp-action="CreateProject" class="btn btn-primary">Create New Project</a>
+        <a id="EditProject" class="btn btn-secondary disabled">Edit Project</a>
     </div>
     <div class="row ">
         <div class="col col-md-4" id="LeftFull">
@@ -165,6 +166,9 @@
         function process(zz, zy, qy) {
             $(".rowie").removeClass("table-active");
             qy.parent().addClass("table-active");
+            $('#EditProject').prop("disabled", false);
+            $("#EditProject").attr("href", "/Project/EditProject/" + zz);
+            $("#EditProject").removeClass("disabled");
             partial('ProjectDetail', zz);
             partial('ProjectFill', zz);
         };

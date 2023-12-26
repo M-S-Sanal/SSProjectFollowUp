@@ -6,7 +6,7 @@
         @for (int i = 0; i < Model.projectFiles.Count(); i++)
         {
             <div class="d-flex flex-row">
-                <a href="~/Documents/@Model.projectFiles.ToList()[i].FUrl@Model.projectFiles.ToList()[i].FExtention">@Model.projectFiles.ToList()[i].FName</a>
+                <a class="btn btn-sm" href="~/Documents/@Model.projectFiles.ToList()[i].FUrl@Model.projectFiles.ToList()[i].FExtention">@Model.projectFiles.ToList()[i].FName</a>
             </div>
         }
     }

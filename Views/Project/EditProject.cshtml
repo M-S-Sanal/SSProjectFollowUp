@@ -1,0 +1,91 @@
+﻿@model SSProjectFollowUp.ViewModels.ProjectVM
+
+@{
+    ViewData["Title"] = "EditProject";
+}
+
+<h1>EditProject</h1>
+
+<hr />
+<form asp-action="EditProject" enctype="multipart/form-data">
+    <div class="row flex-row" style="padding:5px 5px">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-3" style="padding:inherit">
+            <div style="padding:inherit">
+                <label asp-for="project.CreatedAt" class="control-label"></label>
+                <input asp-for="project.CreatedAt" type="date" class="form-control" ReadOnly />
+                <span asp-validation-for="project.CreatedAt" class="text-danger"></span>
+            </div>
+            <div style="padding:inherit">
+                <input asp-for="project.CompId" type="text" class="form-control" hidden ReadOnly />
+                <label asp-for="project.PId" class="control-label"></label>
+                <input asp-for="project.PId" type="text" class="form-control" ReadOnly />
+                <span asp-validation-for="project.PId" class="text-danger"></span>
+            </div>
+            <div hidden style="padding:inherit">
+                <label asp-for="project.CreaterId" class="control-label"></label>
+                <input asp-for="project.CreaterId" class="form-control" ReadOnly />
+                <span asp-validation-for="project.CreaterId" class="text-danger"></span>
+            </div>
+            <div style="padding:inherit">
+                <label asp-for="project.CreatedBy.Name" class="control-label"></label>
+                <input asp-for="project.CreatedBy.Name" class="form-control" value="@Model.project.CreatedBy.Name" ReadOnly />
+                <span asp-validation-for="project.CreatedBy.Name" class="text-danger"></span>
+            </div>
+
+            <div hidden style="padding:inherit">
+                <label asp-for="project.UpdatedAt" class="control-label"></label>
+                <input asp-for="project.UpdatedAt" type="date" class="form-control" ReadOnly />
+                <span asp-validation-for="project.UpdatedAt" class="text-danger"></span>
+            </div>
+            <div style="padding:inherit">
+                <label asp-for="project.PLevel" class="control-label"></label>
+                <select asp-for="project.PLevel" asp-items="@Model.projectLevels" class="form-select">
+                    <option disabled selected>-- Select Level-- </option>
+                </select>
+                <span asp-validation-for="project.PLevel" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-9" style="padding:inherit">
+            <div style="padding:inherit">
+                <label asp-for="project.Name" class="control-label"></label>
+                <input asp-for="project.Name" class="form-control" />
+                <span asp-validation-for="project.Name" class="text-danger"></span>
+            </div>
+            <div style="padding:inherit">
+                <label asp-for="project.Description" class="control-label"></label>
+                <textarea asp-for="project.Description" class="form-control" style="height:200px"></textarea>
+                <span asp-validation-for="project.Description" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="form-control AddNewFile" style="padding:5px 5px">
+        <partial name="_ProjectFile", model="@Model"></partial>
+        <partial name="_FileAdd"></partial>
+    </div>
+    <div class="flex-row" style="padding:5px 5px ">
+        <input type="submit" value="Save" class="btn btn-primary" />
+        <a asp-action="Index" class="btn btn-outline-danger">Back to List</a>
+        <button type="button" id="AddFile" class="btn btn-primary">Add File</button>
+    </div>
+</form>
+
+@section Scripts
+    {
+    <partial name="_ValidationScriptsPartial" />
+    <script type="text/javascript">
+        $(document).on('click', '#AddFile', function (e) {
+            $.ajax({
+                url: '/Project/NewFile',
+                success: function (partialView) {
+                    $('.AddNewFile').append(partialView);
+                }
+            });
+        });
+
+    </script>
+
+}
+
+
+
