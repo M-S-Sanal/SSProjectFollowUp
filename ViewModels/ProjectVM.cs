@@ -19,5 +19,10 @@ namespace SSProjectFollowUp.ViewModels
 
         [ValidateNever]
         public IEnumerable<SelectListItem> projectLevels { get; set; }
+
+        [ValidateNever]
+        public IEnumerable<SelectListItem> fileLevels { get; set; }
+        public List<ProjectFile>? projectFilesList { get; set; }
+
     }
 }

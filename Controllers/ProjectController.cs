@@ -94,9 +94,66 @@ namespace SSProjectFollowUp.Controllers
                     Text = i.Level,
                     Value = i.PLevel.ToString()
                 }),
-                projectFiles=_unitofwork.ProjectFile.GetWith(r => r.PId == id )
+                projectFilesList=_unitofwork.ProjectFile.GetWith(r => r.PId == id /*&& r.PFLevel==1*/,includeProperties:"FileLevel" ).ToList(),
+                fileLevels = _unitofwork.FileLevel.GetAll()
+                .Select(i => new SelectListItem
+                {
+                    Text = i.FLevel,
+                    Value = i.PFLevel.ToString(),
+                })
             };
             return View(projectVM);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditProject(ProjectVM obj, IFormFileCollection? files)
+        {
+            if (ModelState.IsValid)
+            {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (files != null)
+                {
+                    var uploads = Path.Combine(wwwRootPath, @"Documents");
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        string fileName = Guid.NewGuid().ToString();
+                        var extention = Path.GetExtension(files[i].FileName);
+                        using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + "-" + i.ToString() + extention), FileMode.Create))
+                        {
+                            files[i].CopyTo(fileStreams);
+                        }
+                        ProjectFile obj2 = new ProjectFile
+                        {
+                            FName = files[i].FileName,
+                            FNo = 0,
+                            FExtention = extention,
+                            FUrl = fileName,
+                        };
+                        obj2.PId = obj.project.PId;
+                        _unitofwork.ProjectFile.Add(obj2);
+                    }
+                }
+                foreach (var item in obj.projectFilesList)
+                {
+                    var updated = _unitofwork.ProjectFile.GetFirstOrDefault(r => r.PFId == item.PFId);
+                    if (updated.PFLevel != item.PFLevel)
+                    {
+                        updated.PFLevel = item.PFLevel;
+                        _unitofwork.ProjectFile.Update(updated);
+                    }
+                }
+                obj.project.UpdatedAt = DateTime.Now;
+                obj.project.CreatedBy = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == obj.project.CreaterId);
+                obj.project.UpdatedBy = _unitofwork.ApplicationUser.GetFirstOrDefault(r => r.Id == claim);
+                _unitofwork.Project.Update(obj.project);
+                _unitofwork.Save();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
         }
 
         public IActionResult ProjectDetail(int Id)

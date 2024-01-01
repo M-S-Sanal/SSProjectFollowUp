@@ -6,7 +6,6 @@ using SSProjectFollowUp.Models;
 using SSProjectFollowUp.Repository.IRepository;
 using SSProjectFollowUp.ViewModels;
 using System.Security.Claims;
-
 using static System.Net.Mime.MediaTypeNames;
 
 namespace SSProjectFollowUp.Controllers
@@ -309,8 +308,10 @@ namespace SSProjectFollowUp.Controllers
                 {
                     user.UserName = obj.applicationUser0.UserName;
                     user.Email = obj.applicationUser0.Email;
+                    user.DepartmentId=obj.applicationUser0.DepartmentId;
+                    user.SectionId = obj.applicationUser0.SectionId;
                 }
-                _unitofwork.ApplicationUser.Update(obj.applicationUser0);
+                _unitofwork.ApplicationUser.Update(user);
                 _unitofwork.Save();
             }
             return View("Index");

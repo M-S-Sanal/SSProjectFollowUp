@@ -22,6 +22,7 @@ namespace SSProjectFollowUp.Data
         public DbSet<ProjectItemResult> ProjectItemResults { get; set; }
         public DbSet<ProjectFile> ProjectFiles { get; set; }
         public DbSet<ProjectLevel> ProjectLevels { get; set; }
+        public DbSet<FileLevel> FileLevels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
