@@ -164,6 +164,7 @@ namespace SSProjectFollowUp.Controllers
             var projectVM = new ProjectVM
             {
                 project = _unitofwork.Project.GetFirstOrDefault(r => r.PId == Id && r.CompId == compId),
+                projectFilesList = _unitofwork.ProjectFile.GetWith(r => r.PId == Id && r.PFLevel == 1).ToList(),
             };
             return PartialView("_ProjectDetail", projectVM);
         }

@@ -8,8 +8,11 @@
         }
         else { Desc = ""; }
     }
-    <div>
+    <div class="form-control">
         <label class="updown control-label col col-12">Description</label>
         <textarea class="updown  control-label col col-12" readonly id="description">@Desc </textarea>
+    </div>
+    <div class="File">
+        <partial name="_ProjectFile" , model=@Model />
     </div>
 </div>
