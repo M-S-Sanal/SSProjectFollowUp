@@ -46,9 +46,10 @@
                         </div>
                         <div class="tab-pane fade" id="nav2-Result" role="tabpanel" aria-labelledby="nav2-Result-Tab" tabindex="1">
                             <div class="button4">
+                                <button type="button" class="btn btn-outline-dark" id="BackToItem" value="">Back To Item</button>
                                 <button class="btn btn-outline-primary" id="AddResult" type="button" value="">Add Result</button>
                                 <button class="btn btn-outline-primary" id="UpdateResult" type="button" value="" hidden >Update Result</button>
-                                
+
                             </div>
                             <div class="ShowResultsList">
                             </div>
@@ -133,6 +134,10 @@
             activaTab2("nav2-Result-tab", $(this).attr("value"));
             $('#formm').attr('action', '/Project/AddResult');
             $("#AddResult").attr('value', $(this).attr("value"));
+            $("#BackToItem").attr('value', $(this).attr("value"));
+        });
+        $(document).on('click','#BackToItem',function(e){
+            activaTab2("nav2-Details-tab", $(this).attr("value"));
         });
         /* Adding Results */
         $(document).on('click', '#AddResult', function (e) {
