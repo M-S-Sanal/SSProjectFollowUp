@@ -74,7 +74,16 @@
                                 }
                             }
                             <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn">@Convert.ToDateTime(item.DueDate).Date.ToShortDateString()</td>
-                            <td></td>
+
+                            @if (Model.projectItemResults.Where(r => r.PSId == item.PSId).Count() > 0)
+                            {
+                                <td>Completed</td>
+                            }
+                            else
+                            {
+                                <td>Continues</td>
+                            }
+
                             <td type="button" class="Doldur" value1="@idd" value2="@item.OrderColumn"><button value="@idd" class="doldurgstr btn btn-primary" type="button">Show</button></td>
                         </tr>
                     }
