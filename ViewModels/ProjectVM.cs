@@ -13,6 +13,7 @@ namespace SSProjectFollowUp.ViewModels
         public IEnumerable<Project>? projects { get; set; }
         public IEnumerable<ProjectItem>? projectItems { get; set; }
         public IEnumerable<ProjectItemResult>? projectItemResults { get; set; }
+        public BusinessCase? businessCase { get; set; }
 
         public IEnumerable<SelectListItem>? slworkers { get; set; }
         public IEnumerable<ProjectFile>? projectFiles { get; set; }

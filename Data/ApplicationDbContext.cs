@@ -20,6 +20,7 @@ namespace SSProjectFollowUp.Data
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectItem> ProjectItems { get; set; }
         public DbSet<ProjectItemResult> ProjectItemResults { get; set; }
+        public DbSet<BusinessCase> BusinessCases { get; set; }
         public DbSet<ProjectFile> ProjectFiles { get; set; }
         public DbSet<ProjectLevel> ProjectLevels { get; set; }
         public DbSet<FileLevel> FileLevels { get; set; }

@@ -15,6 +15,7 @@
         IProjectRepository Project { get; }
         IProjectItemRepository ProjectItem { get; }
         IProjectItemResultRepository ProjectItemResult { get; }
+        IBusinessCaseRepository BusinessCase { get; }
         IProjectFileRepository ProjectFile { get; }
         IProjectLevelRepository ProjectLevel { get; }
         IFileLevelRepository FileLevel { get; }

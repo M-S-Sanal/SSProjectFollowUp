@@ -12,9 +12,10 @@
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-Details-tab" data-bs-toggle="tab" data-bs-target="#nav-Details" type="button" role="tab" aria-controls="nav-Details" aria-selected="true">Details</button>
+                    <button class="nav-link" id="nav-BCase-tab" data-bs-toggle="tab" data-bs-target="#nav-BCase" type="button" role="tab" aria-controls="nav-BCase" aria-selected="true">Business Case</button>
                     <button class="nav-link" id="nav-List-tab" data-bs-toggle="tab" data-bs-target="#nav-List" type="button" role="tab" aria-controls="nav-List" aria-selected="false">List</button>
                     <button class="nav-link" hidden id="nav-ItemDetail-tab" data-bs-toggle="tab" data-bs-target="#nav-Item-Detail" type="button" role="tab" aria-controls="nav-Item-Detail" aria-selected="false">DetailToDo</button>
-                    <button class="nav-link" id="nav-Gantt-tab" data-bs-toggle="tab" data-bs-target="#nav-Gantt" type="button" role="tab" aria-controls="nav-Gantt" aria-selected="false" disabled>Gantt</button>
+                    <button class="nav-link" hidden id="nav-Gantt-tab" data-bs-toggle="tab" data-bs-target="#nav-Gantt" type="button" role="tab" aria-controls="nav-Gantt" aria-selected="false" disabled>Gantt</button>
                 </div>
             </nav>
             <div class="tab-content" id="nav-tabContent">
@@ -23,6 +24,10 @@
                     </div>
                     <div class="ProjectFile">
                     </div>
+                </div>
+                <div class="tab-pane fade show" id="nav-BCase" role="tabpanel" aria-labelledby="nav-BCase-tab" tabindex="0">
+                    <div class="BusinessCase">
+                    </div>                    
                 </div>
                 <div class="tab-pane fade" id="nav-List" role="tabpanel" aria-labelledby="nav-List-tab" tabindex="0">
                     <div class="ProjectFill">
@@ -80,6 +85,13 @@
             });
             $('#formm').attr('action', '/Project/CreateProjectItem');
             $(this).prop('disabled', true);
+        });
+        /* Updating Project Business Case step*/
+        $(document).on('click', '#UpdateBCase', function (e) {
+            $(".updateBCase").removeAttr('disabled');
+            createbuttons("#UpdateBCase");
+            $('#formm').attr('action', '/Project/BusinessCase');
+            $("#UpdateBCase").attr('disabled', true);
         });
         /* Updating Project sub step*/
         $(document).on('click', '#UpdateItem', function (e) {
@@ -174,8 +186,9 @@
             $('#EditProject').prop("disabled", false);
             $("#EditProject").attr("href", "/Project/EditProject/" + zz);
             $("#EditProject").removeClass("disabled");
-            partial('ProjectDetail', zz);
+            partial('ProjectDetail', zz);           
             partial('ProjectFill', zz);
+            partial('BusinessCase', zz);
         };
         function partial(partial, id) {
             $('.' + partial).empty();

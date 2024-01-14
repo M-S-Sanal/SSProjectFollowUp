@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SSProjectFollowUp.Data;
 
@@ -11,9 +12,11 @@ using SSProjectFollowUp.Data;
 namespace SSProjectFollowUp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240108212202_businesscaseupdatedb")]
+    partial class businesscaseupdatedb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -457,9 +460,6 @@ namespace SSProjectFollowUp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PFId"));
 
-                    b.Property<int?>("BId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("CompId")
                         .HasColumnType("int");
 
@@ -491,8 +491,6 @@ namespace SSProjectFollowUp.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("PFId");
-
-                    b.HasIndex("BId");
 
                     b.HasIndex("CompId");
 
@@ -936,10 +934,6 @@ namespace SSProjectFollowUp.Migrations
 
             modelBuilder.Entity("SSProjectFollowUp.Models.ProjectFile", b =>
                 {
-                    b.HasOne("SSProjectFollowUp.Models.BusinessCase", "BusinessCase")
-                        .WithMany()
-                        .HasForeignKey("BId");
-
                     b.HasOne("SSProjectFollowUp.Models.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompId");
@@ -965,8 +959,6 @@ namespace SSProjectFollowUp.Migrations
                     b.HasOne("SSProjectFollowUp.Models.ProjectItemResult", "ProjectItemResult")
                         .WithMany()
                         .HasForeignKey("PSRId");
-
-                    b.Navigation("BusinessCase");
 
                     b.Navigation("Company");
 

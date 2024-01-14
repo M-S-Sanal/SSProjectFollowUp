@@ -28,6 +28,11 @@ namespace SSProjectFollowUp.Models
         [ValidateNever]
         public ProjectItemResult? ProjectItemResult { get; set; }
 
+        public int? BId { get; set; }
+        [ForeignKey("BId")]
+        [ValidateNever]
+        public BusinessCase? BusinessCase { get; set; }
+
         public int? CompId { get; set; }
         [ForeignKey("CompId")]
         [ValidateNever]

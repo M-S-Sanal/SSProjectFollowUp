@@ -456,5 +456,51 @@ namespace SSProjectFollowUp.Controllers
             }
             return View(obj);
         }
+
+        public IActionResult BusinessCase(int id)
+        {
+            ProjectVM projectVM = new()
+            {
+                project=_unitofwork.Project.GetFirstOrDefault(r=>r.PId==id),
+                businessCase=_unitofwork.BusinessCase.GetFirstOrDefaultWith(r=>r.PId==id)
+            };
+            return PartialView("_BusinessCase", projectVM);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult BusinessCase(string submit, ProjectVM obj, IFormFileCollection? files)
+        {
+            if (ModelState.IsValid && submit == "Save")
+            {
+                string wwwRootPath = _webHostEnvironment.WebRootPath;
+                if (files != null)
+                {
+                    var uploads = Path.Combine(wwwRootPath, @"Documents");
+                    for (int i = 0; i < files.Count; i++)
+                    {
+                        string fileName = Guid.NewGuid().ToString();
+                        var extention = Path.GetExtension(files[i].FileName);
+                        using (var fileStreams = new FileStream(Path.Combine(uploads, fileName + "-" + i.ToString() + extention), FileMode.Create))
+                        {
+                            files[i].CopyTo(fileStreams);
+                        }
+                        ProjectFile obj2 = new ProjectFile
+                        {
+                            FName = files[i].FileName,
+                            FNo = 0,
+                            FExtention = extention,
+                            FUrl = fileName,
+                        };
+                        obj2.BusinessCase = obj.businessCase;
+                        _unitofwork.ProjectFile.Add(obj2);
+                    }
+                    _unitofwork.BusinessCase.Update(obj.businessCase);
+                    _unitofwork.Save();
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(obj);
+        }
+
     }
 }

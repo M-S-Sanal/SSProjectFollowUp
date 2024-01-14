@@ -1,0 +1,54 @@
+﻿@model SSProjectFollowUp.ViewModels.ProjectVM
+
+<div class="button3">
+    <button type="button" id="UpdateBCase" class="btn btn-outline-dark" value="">Update</button>
+</div>
+<div>
+    <div hidden class="form-control">
+        <label asp-for="businessCase.PId"></label>
+        <input class="form-control" asp-for="businessCase.PId" value="@Model.project.PId"/>
+        <span asp-validation-for="businessCase.PId" class="text-danger"></span>
+    </div>
+    <div class="form-control">
+        <label asp-for="businessCase.CalculationExplanation"></label>
+        <textarea disabled class="form-control updateBCase" asp-for="businessCase.CalculationExplanation" style="height:100px"></textarea>
+        <span asp-validation-for="businessCase.CalculationExplanation" class="text-danger"></span>
+    </div>
+    <div class="form-control">
+        <label asp-for="businessCase.DefinitionOfSuccess"></label>
+        <textarea disabled class="form-control updateBCase" asp-for="businessCase.DefinitionOfSuccess" style="height:100px"></textarea>
+        <span asp-validation-for="businessCase.DefinitionOfSuccess" class="text-danger"></span>
+    </div>
+    <div class="form-control">
+        <label asp-for="businessCase.BudgetInfo"></label>
+        <input disabled class="form-control updateBCase" asp-for="businessCase.BudgetInfo" />
+        <span asp-validation-for="businessCase.BudgetInfo" class="text-danger"></span>
+    </div>
+    <div class="form-control">
+        <label asp-for="businessCase.Budget"></label>
+        <input disabled class="form-control updateBCase" asp-for="businessCase.Budget" />
+        <span asp-validation-for="businessCase.Budget" class="text-danger"></span>
+    </div>
+    <div class="form-control">
+        <label asp-for="businessCase.Currency"></label>
+        <input disabled class="form-control updateBCase" asp-for="businessCase.Currency" />
+        <span asp-validation-for="businessCase.Currency" class="text-danger"></span>
+    </div>
+    <div class="form-control">
+        <label asp-for="businessCase.BaseLine"></label>
+        <input disabled class="form-control updateBCase" asp-for="businessCase.BaseLine" />
+        <span asp-validation-for="businessCase.BaseLine" class="text-danger"></span>
+    </div>
+    <div class="form-control">
+        <label asp-for="businessCase.BaseLineTarget"></label>
+        <input disabled class="form-control updateBCase" asp-for="businessCase.BaseLineTarget" />
+        <span asp-validation-for="businessCase.BaseLineTarget" class="text-danger"></span>
+    </div>
+    <div id="NewProjectItems2">
+        @if (Model.projectFilesList!=null)
+        {
+            <partial name="_ProjectFile" , model=@Model />
+
+        }
+    </div>
+</div>
