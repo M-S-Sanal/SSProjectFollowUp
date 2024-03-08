@@ -25,7 +25,7 @@ namespace SSProjectFollowUp.Models
         public ProjectItem ProjectItem { get; set; }
 
         [ForeignKey("ProjectLevel")]
-        public int PLevel { get; set; } = 17;
+        public int PLevel { get; set; } = 6;
         [ValidateNever]
         public ProjectLevel ProjectLevel { get; set; }
 

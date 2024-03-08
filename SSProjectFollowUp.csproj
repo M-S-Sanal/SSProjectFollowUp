@@ -56,4 +56,11 @@
     <UpToDateCheckInput Remove="Views\Project\EditProject.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Views\Project\_UpdateBusinessCase.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

@@ -94,7 +94,7 @@ namespace SSProjectFollowUp.Controllers
                     Text = i.Level,
                     Value = i.PLevel.ToString()
                 }),
-                projectFilesList=_unitofwork.ProjectFile.GetWith(r => r.PId == id /*&& r.PFLevel==1*/,includeProperties:"FileLevel" ).ToList(),
+                projectFilesList = _unitofwork.ProjectFile.GetWith(r => r.PId == id /*&& r.PFLevel==1*/, includeProperties: "FileLevel").ToList(),
                 fileLevels = _unitofwork.FileLevel.GetAll()
                 .Select(i => new SelectListItem
                 {
@@ -184,8 +184,8 @@ namespace SSProjectFollowUp.Controllers
             var projectVM = new ProjectVM
             {
                 project = _unitofwork.Project.GetFirstOrDefault(r => r.PId == Id && r.CompId == compId),
-                projectItems = _unitofwork.ProjectItem.GetWith(r => r.PId == Id && r.CompId == compId, includeProperties: "InChargeUser",orderBy: q => q.OrderBy(r => r.OrderColumn + "." + r.PSId)),
-                projectItemResults=_unitofwork.ProjectItemResult.GetWith(r=>r.ProjectItem.PId==Id && r.ProjectLevel.Value==1,includeProperties:"ProjectItem,ProjectLevel")
+                projectItems = _unitofwork.ProjectItem.GetWith(r => r.PId == Id && r.CompId == compId, includeProperties: "InChargeUser", orderBy: q => q.OrderBy(r => r.OrderColumn + "." + r.PSId)),
+                projectItemResults = _unitofwork.ProjectItemResult.GetWith(r => r.ProjectItem.PId == Id && r.ProjectLevel.Value == 1, includeProperties: "ProjectItem,ProjectLevel")
             };
             return PartialView("_ProjectItem", projectVM);
         }
@@ -448,7 +448,7 @@ namespace SSProjectFollowUp.Controllers
                         obj2.ProjectItemResult = obj.projectItemResult;
                         _unitofwork.ProjectFile.Add(obj2);
                     }
-                    
+
                     _unitofwork.ProjectItemResult.Update(obj.projectItemResult);
                     _unitofwork.Save();
                     return RedirectToAction("Index");
@@ -461,9 +461,13 @@ namespace SSProjectFollowUp.Controllers
         {
             ProjectVM projectVM = new()
             {
-                project=_unitofwork.Project.GetFirstOrDefault(r=>r.PId==id),
-                businessCase=_unitofwork.BusinessCase.GetFirstOrDefaultWith(r=>r.PId==id)
+                project = _unitofwork.Project.GetFirstOrDefault(r => r.PId == id),
+                businessCase = _unitofwork.BusinessCase.GetFirstOrDefaultWith(r => r.PId == id)
             };
+            if (projectVM.businessCase == null)
+            {
+                projectVM.businessCase = new BusinessCase();
+            }
             return PartialView("_BusinessCase", projectVM);
         }
         [HttpPost]
@@ -494,10 +498,52 @@ namespace SSProjectFollowUp.Controllers
                         obj2.BusinessCase = obj.businessCase;
                         _unitofwork.ProjectFile.Add(obj2);
                     }
-                    _unitofwork.BusinessCase.Update(obj.businessCase);
-                    _unitofwork.Save();
-                    return RedirectToAction("Index");
                 }
+                _unitofwork.BusinessCase.Update(obj.businessCase);
+                _unitofwork.Save();
+                return RedirectToAction("Index");
+            }
+            return View(obj);
+        }
+        public IActionResult TimeLine(int id)
+        {
+            if (_unitofwork.ProjectTimeLine.Where(r => r.PId == id).Count() == 0)
+            {
+                for (int i = 1; i < 6; i++)
+                {
+                    ProjectTimeLine projectTime = new ProjectTimeLine();
+                    projectTime.PId = id;
+                    projectTime.PLevel = i;
+                    projectTime.StatusId = (i == 1 ? 1 : null);
+                    projectTime.AppliedDate = DateTime.Now;
+                    _unitofwork.ProjectTimeLine.Add(projectTime);
+                }
+                _unitofwork.Save();
+            }
+            ProjectVM projectVM = new()
+            {
+                project = _unitofwork.Project.GetFirstOrDefaultWith(r => r.PId == id),
+                projectTimeLines = _unitofwork.ProjectTimeLine.GetWith(r => r.PId == id, includeProperties: "ProjectLevel,StatusLevel,StatusUser").ToList()
+            };
+            return PartialView("_TimeLine", projectVM);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult TimeLine(string submit, ProjectVM obj)
+        {
+            if (ModelState.IsValid && submit == "Save")
+            {
+                var claimsIdentity = (ClaimsIdentity)User.Identity;
+                var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                foreach (var item in obj.projectTimeLines)
+                {
+                    var objj=_unitofwork.ProjectTimeLine.GetFirstOrDefault(r=>r.PTId==item.PTId);
+                    objj.ForecastDate=item.ForecastDate;
+                    objj.StatusUserId = claim;
+                    _unitofwork.ProjectTimeLine.Update(objj);
+                }
+                _unitofwork.Save();
+                return RedirectToAction("Index");
             }
             return View(obj);
         }

@@ -1,0 +1,35 @@
+﻿@model SSProjectFollowUp.ViewModels.ProjectVM
+<div class="col-12">
+    <div class="button3">
+        <button type="button" id="UpdateT" class="btn btn-outline-dark" value="">Update</button>
+    </div>
+    <table class="table table-bordered  table-hover">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Status</th>
+                <th>Stage</th>
+                <th>Forecast Date</th>
+                <th>Applied Date</th>
+                <th>Approval Situation</th>
+                <th>Approved By</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                for (int i = 0; i < Model.projectTimeLines.Count(); i++)
+                {
+                    <tr>
+                        <td> @(i + 1)<input hidden class="updateT" disabled asp-for="projectTimeLines[i].PTId" /></td>
+                        <td> <input class="updateT" disabled asp-for="projectTimeLines[i].StatusLevel.Level" /> </td>
+                        <td> <input class="updateT" disabled asp-for="projectTimeLines[i].ProjectLevel.Level" /> </td>
+                        <td> <input class="updateT" disabled asp-for="projectTimeLines[i].ForecastDate" /> </td>
+                        <td> <input class="updateT" disabled asp-for="projectTimeLines[i].AppliedDate" /> </td>
+                        <td> <input class="updateT" disabled asp-for="projectTimeLines[i].StatusLevel.Level" /> </td>
+                        <td> <input class="updateT" disabled asp-for="projectTimeLines[i].StatusUser" /> </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

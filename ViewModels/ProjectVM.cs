@@ -15,8 +15,12 @@ namespace SSProjectFollowUp.ViewModels
         public IEnumerable<ProjectItemResult>? projectItemResults { get; set; }
         public BusinessCase? businessCase { get; set; }
 
+        public ProjectTimeLine? projectTimeLine { get; set; }
+
+
         public IEnumerable<SelectListItem>? slworkers { get; set; }
         public IEnumerable<ProjectFile>? projectFiles { get; set; }
+        public List<ProjectTimeLine>? projectTimeLines { get; set; }
 
         [ValidateNever]
         public IEnumerable<SelectListItem> projectLevels { get; set; }

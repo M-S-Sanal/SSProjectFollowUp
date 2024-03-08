@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SSProjectFollowUp.Data;
 
@@ -11,9 +12,11 @@ using SSProjectFollowUp.Data;
 namespace SSProjectFollowUp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240208202330_projectTimeLineToDB")]
+    partial class projectTimeLineToDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -702,13 +705,13 @@ namespace SSProjectFollowUp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PTId"));
 
-                    b.Property<DateTime?>("ActualDate")
+                    b.Property<DateTime>("ActualDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("AppliedDate")
+                    b.Property<DateTime>("AppliedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("ForecastDate")
+                    b.Property<DateTime>("ForecastDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("PId")

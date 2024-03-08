@@ -24,6 +24,8 @@ namespace SSProjectFollowUp.Repository
             ProjectItem = new ProjectItemRepository(_db);
             ProjectItemResult = new ProjectItemResultRepository(_db);
             BusinessCase = new BusinessCaseRepository(_db);
+            ProjectTimeLine = new ProjectTimeLineRepository(_db);
+
             ProjectFile = new ProjectFileRepository(_db);
             ProjectLevel = new ProjectLevelRepository(_db);
             FileLevel = new FileLevelRepository(_db);
@@ -41,6 +43,8 @@ namespace SSProjectFollowUp.Repository
         public IProjectItemRepository ProjectItem { get; private set; }
         public IProjectItemResultRepository ProjectItemResult { get; private set; }
         public IBusinessCaseRepository BusinessCase { get; private set; }
+        public IProjectTimeLineRepository ProjectTimeLine { get; private set; }
+
         public IProjectFileRepository ProjectFile { get; private set; }
         public IProjectLevelRepository ProjectLevel { get; private set; }
         public IFileLevelRepository FileLevel { get; private set; }

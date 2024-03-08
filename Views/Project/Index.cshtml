@@ -12,7 +12,8 @@
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-Details-tab" data-bs-toggle="tab" data-bs-target="#nav-Details" type="button" role="tab" aria-controls="nav-Details" aria-selected="true">Details</button>
-                    <button class="nav-link" id="nav-BCase-tab" data-bs-toggle="tab" data-bs-target="#nav-BCase" type="button" role="tab" aria-controls="nav-BCase" aria-selected="true">Business Case</button>
+                    <button class="nav-link double" id="nav-BCase-tab" data-bs-toggle="tab" data-bs-target="#nav-BCase" value="" type="button" role="tab" aria-controls="nav-BCase" aria-selected="true">Business Case</button>
+                    <button class="nav-link double" id="nav-PTime-tab" data-bs-toggle="tab" data-bs-target="#nav-PTime" value="" type="button" role="tab" aria-controls="nav-PTime" aria-selected="true">Time Line</button>
                     <button class="nav-link" id="nav-List-tab" data-bs-toggle="tab" data-bs-target="#nav-List" type="button" role="tab" aria-controls="nav-List" aria-selected="false">List</button>
                     <button class="nav-link" hidden id="nav-ItemDetail-tab" data-bs-toggle="tab" data-bs-target="#nav-Item-Detail" type="button" role="tab" aria-controls="nav-Item-Detail" aria-selected="false">DetailToDo</button>
                     <button class="nav-link" hidden id="nav-Gantt-tab" data-bs-toggle="tab" data-bs-target="#nav-Gantt" type="button" role="tab" aria-controls="nav-Gantt" aria-selected="false" disabled>Gantt</button>
@@ -20,17 +21,21 @@
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-Details" role="tabpanel" aria-labelledby="nav-Details-tab" tabindex="0">
-                    <div class="ProjectDetail">
+                    <div class="ProjectDetail Dell">
                     </div>
-                    <div class="ProjectFile">
+                    <div class="ProjectFile Dell">
                     </div>
                 </div>
                 <div class="tab-pane fade show" id="nav-BCase" role="tabpanel" aria-labelledby="nav-BCase-tab" tabindex="0">
-                    <div class="BusinessCase">
-                    </div>                    
+                    <div class="BusinessCase Dell">
+                    </div>
+                </div>
+                <div class="tab-pane fade show" id="nav-PTime" role="tabpanel" aria-labelledby="nav-PTime-tab" tabindex="0">
+                    <div class="TimeLine Dell">
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="nav-List" role="tabpanel" aria-labelledby="nav-List-tab" tabindex="0">
-                    <div class="ProjectFill">
+                    <div class="ProjectFill Dell">
                     </div>
                 </div>
                 <div class="tab-pane fade" id="nav-Item-Detail" role="tabpanel" aria-labelledby="nav-ItemDetail-tab" tabindex="0">
@@ -46,17 +51,15 @@
                                 <button type="button" id="UpdateItem" class="btn btn-outline-dark" value="">Update</button>
                                 <button type="button" id="ShowResultsList" class="btn btn-outline-dark" value="">Results</button>
                             </div>
-                            <div class="DetailProjectItem">
+                            <div class="DetailProjectItem Dell">
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav2-Result" role="tabpanel" aria-labelledby="nav2-Result-Tab" tabindex="1">
                             <div class="button4">
                                 <button type="button" class="btn btn-outline-dark" id="BackToItem" value="">Back To Item</button>
                                 <button class="btn btn-outline-primary" id="AddResult" type="button" value="">Add Result</button>
-                                <button class="btn btn-outline-primary" id="UpdateResult" type="button" value="" hidden >Update Result</button>
-
-                            </div>
-                            <div class="ShowResultsList">
+                                <button class="btn btn-outline-primary" id="UpdateResult" type="button" value="" hidden>Update Result</button>                            </div>
+                            <div class="ShowResultsList Dell">
                             </div>
                         </div>
                     </div>
@@ -92,6 +95,13 @@
             createbuttons("#UpdateBCase");
             $('#formm').attr('action', '/Project/BusinessCase');
             $("#UpdateBCase").attr('disabled', true);
+        });
+        /* Updating Project TimeLine step*/
+        $(document).on('click', '#UpdateT', function (e) {
+            $(".updateT").removeAttr('disabled');
+            createbuttons("#UpdateT");
+            $('#formm').attr('action', '/Project/TimeLine');
+            $("#UpdateT").attr('disabled', true);
         });
         /* Updating Project sub step*/
         $(document).on('click', '#UpdateItem', function (e) {
@@ -148,7 +158,7 @@
             $("#AddResult").attr('value', $(this).attr("value"));
             $("#BackToItem").attr('value', $(this).attr("value"));
         });
-        $(document).on('click','#BackToItem',function(e){
+        $(document).on('click', '#BackToItem', function (e) {
             activaTab2("nav2-Details-tab", $(this).attr("value"));
         });
         /* Adding Results */
@@ -178,6 +188,19 @@
                 $(".StartDateChck").siblings().prop("disabled", true);
             }
         });
+        /*timeline or businesscase tab click*/
+        $(document).on('click', '.double', function (e) {
+            zz = $(this).attr("value");
+            if (e.target.id=="nav-PTime-tab") {
+                $(".BusinessCase").empty();
+                partial('TimeLine', zz);
+            }
+            else 
+            {
+                $(".TimeLine").empty();
+                partial('BusinessCase', zz);
+            }
+        });
 
         /************************** Functions **************************/
         function process(zz, zy, qy) {
@@ -186,9 +209,10 @@
             $('#EditProject').prop("disabled", false);
             $("#EditProject").attr("href", "/Project/EditProject/" + zz);
             $("#EditProject").removeClass("disabled");
-            partial('ProjectDetail', zz);           
+            partial('ProjectDetail', zz);
             partial('ProjectFill', zz);
-            partial('BusinessCase', zz);
+            $(".double").attr("value",zz);
+            $(".Dell").empty();
         };
         function partial(partial, id) {
             $('.' + partial).empty();

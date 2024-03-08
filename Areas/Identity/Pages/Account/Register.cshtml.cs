@@ -108,12 +108,12 @@ namespace SSProjectFollowUp.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            if (!_roleManager.RoleExistsAsync(SD.Role_Admin).GetAwaiter().GetResult())
-            {
-                _roleManager.CreateAsync(new ApplicationRole(SD.Role_Admin)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new ApplicationRole(SD.Role_Company_User)).GetAwaiter().GetResult();
-                _roleManager.CreateAsync(new ApplicationRole(SD.Role_Company_Admin)).GetAwaiter().GetResult();
-            }
+            //if (!_roleManager.RoleExistsAsync(SD.Role_Admin).GetAwaiter().GetResult())
+            //{
+            //    _roleManager.CreateAsync(new ApplicationRole(SD.Role_Admin)).GetAwaiter().GetResult();
+            //    _roleManager.CreateAsync(new ApplicationRole(SD.Role_Company_User)).GetAwaiter().GetResult();
+            //    _roleManager.CreateAsync(new ApplicationRole(SD.Role_Company_Admin)).GetAwaiter().GetResult();
+            //}
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }

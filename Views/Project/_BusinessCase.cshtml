@@ -4,6 +4,11 @@
     <button type="button" id="UpdateBCase" class="btn btn-outline-dark" value="">Update</button>
 </div>
 <div>
+    <div class="form-control">
+        <label asp-for="businessCase.BId"></label>
+        <input class="form-control" asp-for="businessCase.BId" value="@(Model.businessCase!=null?Model.businessCase.BId:null)" />
+        <span asp-validation-for="businessCase.BId" class="text-danger"></span>
+    </div>
     <div hidden class="form-control">
         <label asp-for="businessCase.PId"></label>
         <input class="form-control" asp-for="businessCase.PId" value="@Model.project.PId"/>

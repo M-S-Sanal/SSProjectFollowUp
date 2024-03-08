@@ -45,7 +45,7 @@ namespace SSProjectFollowUp.Models
 
         [ForeignKey("ProjectLevel")]
         [Column(Order = 11)]
-        public int PLevel { get; set; } = 17;
+        public int PLevel { get; set; } = 6;
         [ValidateNever]
         public ProjectLevel ProjectLevel { get; set; }
 
